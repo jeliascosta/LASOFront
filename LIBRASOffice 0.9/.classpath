@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="lib" path="jodconnector.jar" sourcepath="jodconnector.jar"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/LIBRASOffice GIF240"/>
+	<classpathentry kind="con" path="org.libreoffice.ide.eclipse.java.OOO_CONTAINER/LibreOffice 5.2"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>
