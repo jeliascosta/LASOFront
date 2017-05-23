@@ -1,25 +1,16 @@
 package ufrj.lipe.librasoffice;
 
-import java.awt.EventQueue;
+import java.io.FileReader;
 
 import com.artofsolving.jodconverter.openoffice.connection.AbstractOpenOfficeConnection;
 import com.artofsolving.jodconverter.openoffice.connection.SocketOpenOfficeConnection;
-import com.sun.star.frame.XDesktop;
 import com.sun.star.frame.XDispatchHelper;
-import com.sun.star.frame.XDispatchProvider;
-import com.sun.star.frame.XFrame;
-import com.sun.star.frame.XModel;
-import com.sun.star.lang.XComponent;
 //import com.artofsolving.jodconverter.openoffice.connection.PipeOpenOfficeConnection;
 import com.sun.star.lang.XMultiComponentFactory;
-import com.sun.star.sheet.XSpreadsheet;
-import com.sun.star.sheet.XSpreadsheetDocument;
-import com.sun.star.sheet.XSpreadsheets;
-import com.sun.star.table.XCell;
 import com.sun.star.uno.UnoRuntime;
 import com.sun.star.uno.XComponentContext;
 
-import ufrj.lipe.librasoffice.librastooltip.AnimatedTooltip;
+import ufrj.lipe.librasoffice.librasgui.AnimatedTooltip;
 
 // Make sure LibreOffice is started with the proper arguments to have it listen before
 // running this client application. Use one of the following commands to start it:
@@ -32,24 +23,19 @@ public class SetEnv {
     static XDispatchHelper xDHelper = null;
 	
     public static void main(String[] args) {
-        AbstractOpenOfficeConnection cnx = null;
+        //AbstractOpenOfficeConnection cnx = null;
         
-		/*EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {*/
-					LIBRASHelp = new AnimatedTooltip();
-					LIBRASHelp.getFrame().setVisible(true);
-			        LC = new LoggedController(); //implementar esquema notify command
-			        Thread threadLog = new Thread(LC);
-			        threadLog.start();
-		            while (!(LC.getOpen()) && LC.getFound()) {System.err.println("LASO.log ainda não encontrado e/ou aberto.");}
-			        if (!(LC.getFound())) System.exit(1);
-			        System.err.println("LASO.log foi encontrado e aberto!");/*
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});       */
+    	LIBRASHelp = new AnimatedTooltip();
+		LIBRASHelp.getFrame().setVisible(true);
+		
+        FileReader fr = new FileReader("C:\\ProgramData\\LASO.log");
+		//TODO Implementar esquema notify command?
+		Thread LC = new LoggedController(fr);
+		LC.start();
+		
+		while (!(LC.getOpen()) && LC.getFound()) {System.err.println("LASO.log ainda não encontrado e/ou aberto.");}
+		if (!(LC.getFound())) System.exit(1);
+			System.err.println("LASO.log foi encontrado e aberto!");
 		
         try {
             cnx = new SocketOpenOfficeConnection( "localhost", 8100 );

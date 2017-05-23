@@ -11,31 +11,34 @@ import java.io.IOException;
 
 import javax.swing.ImageIcon;
 
-import ufrj.lipe.librasoffice.librastooltip.AnimatedTooltip;
+import ufrj.lipe.librasoffice.librasgui.AnimatedTooltip;
 
 /**
- * Class LoggedController
+ * Classe LoggedController
+ * Monitora o log de saída gerado pelo LASOBack
  */
-public class LoggedController implements Runnable {
+public class LoggedController extends Thread {
 
-  // Fields
+  // Atributos
 
   private boolean open = false;
   private boolean found = true;
   private String command = "";
   private AnimatedTooltip atip = null;
   private FormulaHelperGUI fgui = null;
+  FileReader fr;
+
+  // Construtores e Destrutores
   
-  // Constructors
-  
-  public LoggedController () {
+  public LoggedController (FileReader fr) {
 	  atip = SetEnv.LIBRASHelp;
+	  this.fr = fr;
   };
   
-  // Methods
+  // Métodos
 
   
-  // Accessor methods
+  // Métodos de Acesso
 
   /**
    * Get the value of open
@@ -62,15 +65,26 @@ public class LoggedController implements Runnable {
     return command;
   }
 
+  /**
+   * @return the fgui
+   */
+  public FormulaHelperGUI getFgui() {
+  	return fgui;
+  }
+
+  /**
+   * @param fgui the fgui to set
+   */
+  public void setFgui(FormulaHelperGUI fgui) {
+  	this.fgui = fgui;
+  }
+  
   // Other methods
   
 
 @Override
 public void run() {
-	try {
-		//FileReader fr = new FileReader("LIBRASOfficeLOG.txt");
-        FileReader fr = new FileReader("C:\\ProgramData\\LASO.log");
-        
+	try {        
         open = true;
         
         @SuppressWarnings("resource")
@@ -113,5 +127,7 @@ public void run() {
         System.err.println(e.toString());
     } */
   }
+
+
 	
 }
