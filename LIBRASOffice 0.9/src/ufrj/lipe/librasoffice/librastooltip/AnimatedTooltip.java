@@ -70,6 +70,7 @@ public class AnimatedTooltip {
         if (Y < minTop) Y = minTop+20;
         else if (Y > maxBottom) Y = maxBottom+20;
         
+        frame.setBounds(0, 0, 270, 240);
         frame.setLocation(X, Y);
         System.err.println(X+" "+Y);
         try{
@@ -89,10 +90,10 @@ public class AnimatedTooltip {
 	 */
 	private void initialize() {
 		frame = new JFrame();
-		frame.setBounds(new Rectangle(0, 0, 270, 240));
-		frame.getContentPane().setMaximumSize(new Dimension(270, 240));
-		frame.getContentPane().setPreferredSize(new Dimension(270, 240));
-		frame.setPreferredSize(new Dimension(270, 240));
+		frame.setBounds(new Rectangle(0, 0, 0, 0));
+		//frame.getContentPane().setMaximumSize(new Dimension(270, 240));
+		//frame.getContentPane().setPreferredSize(new Dimension(270, 240));
+		frame.setPreferredSize(new Dimension(0, 0));
 		frame.setResizable(false);
 		frame.setIconImage(Toolkit.getDefaultToolkit().getImage(AnimatedTooltip.class.getResource("/javax/swing/plaf/metal/icons/Question.gif")));
 		frame.setUndecorated(true);
@@ -109,9 +110,8 @@ public class AnimatedTooltip {
 		});
 		frame.getContentPane().setLayout(null);
 		label.setAlignmentX(Component.CENTER_ALIGNMENT);
-		label.setMaximumSize(new Dimension(270, 240));
+		//label.setMaximumSize(new Dimension(270, 240));
 		label.setPreferredSize(new Dimension(270, 240));
-		label.setIcon(new ImageIcon(AnimatedTooltip.class.getResource("/ufrj/lipe/librasoffice/gif240/ABRIR_240.gif")));
 		label.setToolTipText("");
 		frame.getContentPane().add(label);
 	}

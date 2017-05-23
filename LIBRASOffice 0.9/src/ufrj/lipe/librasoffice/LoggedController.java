@@ -101,9 +101,7 @@ public void run() {
             	 try{atip.getLabel().setIcon(new ImageIcon(AnimatedTooltip.class.getResource("/ufrj/lipe/librasoffice/gif240/"+command+"_240.gif")));}
             	 catch (Exception e){e.printStackTrace();};
              }
-             else {
-            	 atip.getLabel().setIcon(null);
-             }
+             else {atip.getLabel().setIcon(null);atip.getFrame().setBounds(0, 0, 0, 0);}
          }
         }
     }
