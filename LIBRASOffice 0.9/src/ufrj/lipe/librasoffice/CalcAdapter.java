@@ -22,7 +22,7 @@ public class CalcAdapter {
   // Constructors
   //
   public CalcAdapter () {
-	  System.out.println(SetEnv.LODesktop);
+	  System.out.println(LASOFront.LODesktop);
 	  soma("A1","A10","A11");
 	  fgui = new FormulaHelperGUI();
 	  fgui.getFrame().setVisible(false);
@@ -37,7 +37,7 @@ public class CalcAdapter {
          args1[0].Name = "ToPoint";
          args1[0].Value = Resul;
          
-         XDesktop xDesk = (XDesktop)UnoRuntime.queryInterface(XDesktop.class, SetEnv.LODesktop);
+         XDesktop xDesk = (XDesktop)UnoRuntime.queryInterface(XDesktop.class, LASOFront.LODesktop);
          System.err.println(xDesk.toString());
          XFrame dFrame = xDesk.getCurrentFrame();
          while (dFrame == null) dFrame = xDesk.getCurrentFrame();
@@ -46,7 +46,7 @@ public class CalcAdapter {
          System.err.println(xDProver.toString());
 
          
-         SetEnv.xDHelper.executeDispatch(xDProver, ".uno:GoToCell", "", 0, args1);
+         LASOFront.xDHelper.executeDispatch(xDProver, ".uno:GoToCell", "", 0, args1);
          PropertyValue[] args2 = new PropertyValue[1];
          args2[0] = new PropertyValue();
          args2[0].Name = "StringName";
@@ -54,7 +54,7 @@ public class CalcAdapter {
          /*if ("SUB".equals(currOpt)) args2[0].Value = "="+Inicial+"-"+Final;
          if ("DIV".equals(currOpt)) args2[0].Value = "="+Inicial+"/"+Final;
          if ("MULT".equals(currOpt)) args2[0].Value = "=MULT("+Inicial+":"+Final+")";*/
-         SetEnv.xDHelper.executeDispatch(xDProver, ".uno:EnterString", "", 0, args2);      
+         LASOFront.xDHelper.executeDispatch(xDProver, ".uno:EnterString", "", 0, args2);      
 }
 
   //
