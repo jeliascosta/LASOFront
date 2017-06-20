@@ -30,8 +30,8 @@ public class LASOFront {
 		System.err.println("LASO.log foi encontrado e aberto!");
 
 		janelaLIBRAS = new AjudaAnimada();
-		Thread tAA = new Thread(janelaLIBRAS);
-		tAA.start();
+		//Thread tAA = new Thread(janelaLIBRAS);
+		//tAA.start();
 		
 		ChecaLog cLog = new ChecaLog(fr);
 		Thread tCL = new Thread(cLog);

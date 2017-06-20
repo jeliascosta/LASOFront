@@ -15,7 +15,7 @@ import javax.swing.JLabel;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
-public class AjudaAnimada implements Runnable {
+public class AjudaAnimada {
 
 	private JFrame frame;
 	private JLabel label;
@@ -23,14 +23,14 @@ public class AjudaAnimada implements Runnable {
 	/**
 	 * Launch the application.
 	 */
-	public void run() {
+	/*public void run() {
 		try {
 			AjudaAnimada window = new AjudaAnimada();
 			window.frame.setVisible(true);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-	}
+	}*/
 
 	/**
 	 * Create the application.
@@ -81,16 +81,19 @@ public class AjudaAnimada implements Runnable {
 	 */
 	private void initialize() {
 		frame = new JFrame();
-		frame.setBounds(new Rectangle(0, 0, 0, 0));
-		//frame.getContentPane().setMaximumSize(new Dimension(270, 240));
-		//frame.getContentPane().setPreferredSize(new Dimension(270, 240));
-		frame.setPreferredSize(new Dimension(0, 0));
-		frame.setResizable(false);
-		frame.setIconImage(Toolkit.getDefaultToolkit().getImage(AjudaAnimada.class.getResource("/javax/swing/plaf/metal/icons/Question.gif")));
-		frame.setUndecorated(true);
+        frame.setBounds(0, 0, 270, 240);
 		frame.setMaximumSize(new Dimension(270, 240));
+        frame.setPreferredSize(new Dimension(0, 0));
+        //frame.getContentPane().setMaximumSize(new Dimension(270, 240));
+		//frame.getContentPane().setPreferredSize(new Dimension(0, 0));
+		frame.setResizable(false);
+		frame.setUndecorated(true);
 		frame.setAlwaysOnTop(true);
+		frame.setIconImage(Toolkit.getDefaultToolkit().getImage(
+		    AjudaAnimada.class.getResource("/javax/swing/plaf/metal/icons/Question.gif")
+		));		
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.getContentPane().setLayout(null);
 		
 		label = new JLabel("");
 		label.setBounds(0, 0, 270, 240);
@@ -99,9 +102,8 @@ public class AjudaAnimada implements Runnable {
 				labelPropertyChange(evt);
 			}
 		});
-		frame.getContentPane().setLayout(null);
 		label.setAlignmentX(Component.CENTER_ALIGNMENT);
-		//label.setMaximumSize(new Dimension(270, 240));
+		label.setMaximumSize(new Dimension(270, 240));
 		label.setPreferredSize(new Dimension(270, 240));
 		label.setToolTipText("");
 		frame.getContentPane().add(label);
