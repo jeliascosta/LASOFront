@@ -88,6 +88,9 @@ public void run() {
             		    );
             		 }
             	 catch (Exception e){e.printStackTrace();};
+            	 if (comando == "FUNCOES"){
+                 	CalcAdapter.getGUI().getFrame().setVisible(true);
+            	 }
              }
              else {
             	 janelaLIBRAS.getLabel().setIcon(null);
