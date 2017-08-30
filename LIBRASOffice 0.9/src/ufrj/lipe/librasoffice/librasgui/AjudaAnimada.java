@@ -17,7 +17,7 @@ import javax.swing.UnsupportedLookAndFeelException;
 
 public class AjudaAnimada {
 
-	private JFrame frame;
+	private JFrame frame;  //
 	private JLabel label;
 
 	/**
@@ -35,7 +35,7 @@ public class AjudaAnimada {
 	/**
 	 * Create the application.
 	 */
-	public AjudaAnimada() {
+	public AjudaAnimada() { 
 	       try {
 			UIManager.setLookAndFeel(
 			           UIManager.getSystemLookAndFeelClassName());

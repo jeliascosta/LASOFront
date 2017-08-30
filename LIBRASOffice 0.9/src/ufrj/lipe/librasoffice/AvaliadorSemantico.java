@@ -1,7 +1,9 @@
 package ufrj.lipe.librasoffice;
 
+// Classe para relacionar os nomes do comando, ao comando em si no menu do programa
+
 public class AvaliadorSemantico {
-	private String comando;
+	private String comando;     
 	private String texto;
 	
 	public String avaliar (String str){
