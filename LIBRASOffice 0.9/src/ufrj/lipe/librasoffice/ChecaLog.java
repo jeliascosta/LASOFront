@@ -84,7 +84,7 @@ public void run() {
              if (comando != "SUMA"){
             	 try {
             		 	janelaLIBRAS.getLabel().setIcon(
-            		     new ImageIcon(AjudaAnimada.class.getResource("/ufrj/lipe/librasoffice/vlibras/gif240/"+comando+"_240.gif"))
+            		     new ImageIcon(AjudaAnimada.class.getResource("/ufrj/lipe/librasoffice/sinais/"+comando+".gif"))
             		    );
             		 }
             	 catch (Exception e){e.printStackTrace();};
