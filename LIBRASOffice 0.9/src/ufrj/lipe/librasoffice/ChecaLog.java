@@ -83,9 +83,10 @@ public void run() {
              System.out.println(comando);
              if (comando != "SUMA"){
             	 try {
-            		 	janelaLIBRAS.getLabel().setIcon(
-            		     new ImageIcon(AjudaAnimada.class.getResource("/ufrj/lipe/librasoffice/sinais/"+comando+".gif"))
+            		 	janelaLIBRAS.getGIF().setIcon(
+            		 			new ImageIcon(AjudaAnimada.class.getResource("/ufrj/lipe/librasoffice/sinais/"+comando+".gif"))
             		    );
+            		 	janelaLIBRAS.getLegenda().setText(line);
             		 }
             	 catch (Exception e){e.printStackTrace();};
             	 if (comando == "FUNCOES"){
@@ -93,8 +94,9 @@ public void run() {
             	 }
              }
              else {
-            	 janelaLIBRAS.getLabel().setIcon(null);
-            	 janelaLIBRAS.getFrame().setVisible(false);
+            	 janelaLIBRAS.getJanelaPrincipal().setVisible(false);
+            	 janelaLIBRAS.getGIF().setIcon(null);
+            	 janelaLIBRAS.getLegenda().setText(null);
              }
          }
         }

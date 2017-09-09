@@ -12,13 +12,14 @@ import java.beans.PropertyChangeListener;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.SwingConstants;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
 public class AjudaAnimada {
 
-	private JFrame frame;  //
-	private JLabel label;
+	private JFrame janelaPrincipal;  //
+	private JLabel gifLIBRAS, legendaPortugues;
 
 	/**
 	 * Launch the application.
@@ -48,12 +49,18 @@ public class AjudaAnimada {
 	}
 
     private void labelPropertyChange(java.beans.PropertyChangeEvent evt) {                                       
+      if (gifLIBRAS.getIcon() != null){
         Point mouse = MouseInfo.getPointerInfo().getLocation(); 
         Rectangle dim = GraphicsEnvironment.getLocalGraphicsEnvironment().getMaximumWindowBounds();
         int minLeft=0,maxRight,minTop=0,maxBottom;
-        maxRight = (int) (dim.getWidth()-270);
-        maxBottom = (int) (dim.getHeight()-240);
-        int X = (int)mouse.getX()-135;
+        int gifWidth = gifLIBRAS.getIcon().getIconWidth();
+        int gifHeight = gifLIBRAS.getIcon().getIconHeight();
+        int legendWidth = legendaPortugues.getWidth();
+        int legendHeight = legendaPortugues.getHeight();
+ 
+        maxRight = (int) (dim.getWidth() - gifWidth);
+        maxBottom = (int) (dim.getHeight() - gifHeight);
+        int X = (int)mouse.getX()-gifWidth/2;
         int Y = (int)mouse.getY()+20;
         
         if (X < minLeft) X = minLeft;
@@ -61,54 +68,68 @@ public class AjudaAnimada {
         if (Y < minTop) Y = minTop+20;
         else if (Y > maxBottom) Y = maxBottom+20;
         
-        frame.setBounds(0, 0, 270, 240);
-        frame.setLocation(X, Y);
+        janelaPrincipal.setBounds(0, 0, gifWidth, gifHeight+legendHeight);
+        gifLIBRAS.setBounds(0, 0, gifWidth, gifHeight);
+		legendaPortugues.setBounds(0, gifHeight, gifWidth, legendHeight);
+
+        janelaPrincipal.setLocation(X, Y);		
         System.err.println(X+" "+Y);
+        
         try{
-        	System.out.println(label.getIcon());
-        	if(!(label.getIcon().equals(null)))
-        		frame.setVisible(true);
+        	System.out.println(gifLIBRAS.getIcon());
+        	if(!(gifLIBRAS.getIcon().equals(null)))
+        		janelaPrincipal.setVisible(true);
         }
         catch (NullPointerException e){
             System.err.println("SOME");
-            frame.setVisible(false);
+            janelaPrincipal.setVisible(false);
         	System.err.println(e.toString());
         }
+      }
     }   
 	
 	/**
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
-		frame = new JFrame();
-        frame.setBounds(0, 0, 270, 240);
-		frame.setMaximumSize(new Dimension(270, 240));
-        frame.setPreferredSize(new Dimension(0, 0));
+		janelaPrincipal = new JFrame();
+        janelaPrincipal.setBounds(0, 0, 220, 450);
+		//frame.setMaximumSize(new Dimension(270, 240));
+        janelaPrincipal.setPreferredSize(new Dimension(0, 0));
         //frame.getContentPane().setMaximumSize(new Dimension(270, 240));
 		//frame.getContentPane().setPreferredSize(new Dimension(0, 0));
-		frame.setResizable(false);
-		frame.setUndecorated(true);
-		frame.setAlwaysOnTop(true);
-		frame.setIconImage(Toolkit.getDefaultToolkit().getImage(
+		janelaPrincipal.setResizable(false);
+		janelaPrincipal.setUndecorated(true);
+		janelaPrincipal.setAlwaysOnTop(true);
+		janelaPrincipal.setIconImage(Toolkit.getDefaultToolkit().getImage(
 		    AjudaAnimada.class.getResource("/javax/swing/plaf/metal/icons/Question.gif")
 		));		
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.getContentPane().setLayout(null);
+		janelaPrincipal.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		janelaPrincipal.getContentPane().setLayout(null);
 		
-		label = new JLabel("");
-		label.setBounds(0, 0, 270, 240);
-		label.addPropertyChangeListener(new PropertyChangeListener() {
+		gifLIBRAS = new JLabel("");
+		gifLIBRAS.setBounds(0, 0, 220, 400);
+		gifLIBRAS.addPropertyChangeListener(new PropertyChangeListener() {
 			public void propertyChange(PropertyChangeEvent evt) {
 				labelPropertyChange(evt);
 			}
 		});
-		label.setAlignmentX(Component.CENTER_ALIGNMENT);
-		label.setMaximumSize(new Dimension(270, 240));
-		label.setPreferredSize(new Dimension(270, 240));
-		label.setToolTipText("");
-		frame.getContentPane().add(label);
+		gifLIBRAS.setAlignmentX(Component.CENTER_ALIGNMENT);
+		//label.setMaximumSize(new Dimension(270, 240));
+		//label.setPreferredSize(new Dimension(270, 240));
+		gifLIBRAS.setToolTipText("");
+		janelaPrincipal.getContentPane().add(gifLIBRAS);
+		
+		legendaPortugues = new JLabel("TESTE");
+		//legendaPortugues.setAlignmentX(JLabel.CENTER_ALIGNMENT);
+		legendaPortugues.setHorizontalAlignment(SwingConstants.CENTER);
+
+		legendaPortugues.setBounds(0, 400, 220, 50);
+		janelaPrincipal.getContentPane().add(legendaPortugues);
 	}
 	
-	public JFrame getFrame() { return frame; }
-	public JLabel getLabel() { return label; }
+	public JFrame getJanelaPrincipal() { return janelaPrincipal; }
+	public JLabel getGIF() { return gifLIBRAS; }
+	public JLabel getLegenda() { return legendaPortugues; }
+
 }
