@@ -6,6 +6,8 @@ import java.io.IOException;
 import javax.swing.ImageIcon;
 
 import ufrj.lipe.librasoffice.librasgui.AjudaAnimada;
+import ufrj.lipe.librasoffice.toDo.CalcAdapter;
+import ufrj.lipe.librasoffice.toDo.FormulaHelperGUI;
 
 /**
  * Classe ChecaLog
