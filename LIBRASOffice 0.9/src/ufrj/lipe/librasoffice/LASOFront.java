@@ -3,14 +3,12 @@ package ufrj.lipe.librasoffice;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 
-import com.sun.star.frame.XDispatchHelper;
-
-import ufrj.lipe.librasoffice.librasgui.AjudaAnimada;
+import ufrj.lipe.librasoffice.librasgui.AjudaEmLIBRAS;
 // 
 public class LASOFront {  
-    static Object LODesktop = null;   // Classe necessária para conectar o LibrasOffice no Libre Office
-    static XDispatchHelper xDHelper = null; //""
-	static AjudaAnimada janelaLIBRAS;  //AjudaAnimada é a classe onde estão os gifs de libras
+    //static Object LODesktop = null;   // Classe necessária para conectar o LibrasOffice no LibreOffice
+    //static XDispatchHelper xDHelper = null; //""
+	static AjudaEmLIBRAS janelaLIBRAS;  //AjudaEmLIBRAS é a classe onde estão os gifs de libras
     
 	private static FileReader getLog(){  /*Para abrir o arquivo Laso.log, é criada a variável fr,
 	que se o arquivo for aberto corretamente será retornado quando for impressa essa variável*/
@@ -31,11 +29,11 @@ public class LASOFront {
 
 		System.err.println("LASO.log foi encontrado e aberto!"); /*Caso o arquivo tenha sido aberto,
 		é impressa a mensagem de que foi encontrado e aberto.*/
-		janelaLIBRAS = new AjudaAnimada();  //Um novo objeto "AjudaAnimada" é armazenado 
+		janelaLIBRAS = new AjudaEmLIBRAS();  //Um novo objeto "AjudaEmLIBRAS" é armazenado 
 		//Thread tAA = new Thread(janelaLIBRAS);
 		//tAA.start();
 		
-		ChecaLog cLog = new ChecaLog(fr); 
+		LeitorDeLog cLog = new LeitorDeLog(fr); 
 		Thread tCL = new Thread(cLog);
 		tCL.start();
 		

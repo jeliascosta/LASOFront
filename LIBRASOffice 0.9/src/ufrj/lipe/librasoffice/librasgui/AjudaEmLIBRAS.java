@@ -16,7 +16,7 @@ import javax.swing.SwingConstants;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
-public class AjudaAnimada {
+public class AjudaEmLIBRAS {
 
 	private JFrame janelaPrincipal;  //
 	private JLabel gifLIBRAS, legendaPortugues;
@@ -26,7 +26,7 @@ public class AjudaAnimada {
 	 */
 	/*public void run() {
 		try {
-			AjudaAnimada window = new AjudaAnimada();
+			AjudaEmLIBRAS window = new AjudaEmLIBRAS();
 			window.frame.setVisible(true);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -36,7 +36,7 @@ public class AjudaAnimada {
 	/**
 	 * Create the application.
 	 */
-	public AjudaAnimada() { 
+	public AjudaEmLIBRAS() { 
 	       try {
 			UIManager.setLookAndFeel(
 			           UIManager.getSystemLookAndFeelClassName());
@@ -55,7 +55,6 @@ public class AjudaAnimada {
         int minLeft=0,maxRight,minTop=0,maxBottom;
         int gifWidth = gifLIBRAS.getIcon().getIconWidth();
         int gifHeight = gifLIBRAS.getIcon().getIconHeight();
-        int legendWidth = legendaPortugues.getWidth();
         int legendHeight = legendaPortugues.getHeight();
  
         maxRight = (int) (dim.getWidth() - gifWidth);
@@ -102,7 +101,7 @@ public class AjudaAnimada {
 		janelaPrincipal.setUndecorated(true);
 		janelaPrincipal.setAlwaysOnTop(true);
 		janelaPrincipal.setIconImage(Toolkit.getDefaultToolkit().getImage(
-		    AjudaAnimada.class.getResource("/javax/swing/plaf/metal/icons/Question.gif")
+		    AjudaEmLIBRAS.class.getResource("/javax/swing/plaf/metal/icons/Question.gif")
 		));		
 		janelaPrincipal.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		janelaPrincipal.getContentPane().setLayout(null);

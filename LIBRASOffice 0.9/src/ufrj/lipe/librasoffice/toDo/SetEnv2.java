@@ -11,15 +11,15 @@ package ufrj.lipe.librasoffice.toDo;
 //import com.sun.star.uno.UnoRuntime;
 //import com.sun.star.uno.XComponentContext;
 //
-//import ufrj.lipe.librasoffice.librasgui.AjudaAnimada;
+//import ufrj.lipe.librasoffice.librasgui.AjudaEmLIBRAS;
 //
 //// Make sure LibreOffice is started with the proper arguments to have it listen before
 //// running this client application. Use one of the following commands to start it:
 ////  * For socket connection: soffice --accept="socket,host=localhost,port=8100,tcpNoDelay=1;urp;"
 ////  * For pipe connection:   soffice --accept="pipe,name=yourpipename;urp;" 
 public class SetEnv2 {
-//    static AjudaAnimada JanelaLIBRAS = null;
-//    static ChecaLog LC = null;
+//    static AjudaEmLIBRAS JanelaLIBRAS = null;
+//    static LeitorDeLog LC = null;
 //    static Object LODesktop = null;
 //    static XDispatchHelper xDHelper = null;
 //	static boolean logFound = false;
@@ -36,7 +36,7 @@ public class SetEnv2 {
 //    public static void main(String[] args) {
 //        //AbstractOpenOfficeConnection cnx = null;
 //        
-//    	JanelaLIBRAS = new AjudaAnimada();
+//    	JanelaLIBRAS = new AjudaEmLIBRAS();
 //		JanelaLIBRAS.getFrame().setVisible(true);
 //		
 //		FileReader lasoLog = getLog();
@@ -47,7 +47,7 @@ public class SetEnv2 {
 //
 //		System.err.println("LASO.log foi encontrado e aberto!");
 //		//TODO Implementar esquema notify command?
-//		new ChecaLog(lasoLog).start();
+//		new LeitorDeLog(lasoLog).start();
 //		
 //		/*
 //       try {

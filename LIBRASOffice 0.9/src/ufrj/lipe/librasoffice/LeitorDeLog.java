@@ -5,28 +5,28 @@ import java.io.FileReader;
 import java.io.IOException;
 import javax.swing.ImageIcon;
 
-import ufrj.lipe.librasoffice.librasgui.AjudaAnimada;
-import ufrj.lipe.librasoffice.toDo.CalcAdapter;
-import ufrj.lipe.librasoffice.toDo.FormulaHelperGUI;
+import ufrj.lipe.librasoffice.librasgui.AjudaEmLIBRAS;
+//import ufrj.lipe.librasoffice.toDo.CalcAdapter;
+//import ufrj.lipe.librasoffice.toDo.FormulaHelperGUI;
 
 /**
- * Classe ChecaLog
+ * Classe LeitorDeLog
  * Monitora o log de saída gerado pelo LASOFront
  */
-public class ChecaLog implements Runnable {
+public class LeitorDeLog implements Runnable {
 
   // Atributos
 
   private boolean abriu = false;
   private String comando = "";
-  private AjudaAnimada janelaLIBRAS;
-  private FormulaHelperGUI fgui = null;
+  private AjudaEmLIBRAS janelaLIBRAS;
+//  private FormulaHelperGUI fgui = null;
   private AvaliadorSemantico aval;
   FileReader lasoLog;
 
   // Construtores e Destrutores
   
-  public ChecaLog (FileReader fr) {
+  public LeitorDeLog (FileReader fr) {
 	  janelaLIBRAS = LASOFront.janelaLIBRAS;
 	  aval = new AvaliadorSemantico(); 
 	  this.lasoLog = fr;
@@ -56,16 +56,16 @@ public class ChecaLog implements Runnable {
   /**
    * @return the fgui
    */
-  public FormulaHelperGUI getFgui() {
-  	return fgui;
-  }
+//  public FormulaHelperGUI getFgui() {
+//  	return fgui;
+//  }
 
   /**
    * @param fgui the fgui to set
    */
-  public void setFgui(FormulaHelperGUI fgui) {
-  	this.fgui = fgui;
-  }
+//  public void setFgui(FormulaHelperGUI fgui) {
+//  	this.fgui = fgui;
+//  }
   
   // Other methods
   
@@ -86,13 +86,13 @@ public void run() {
              if (comando != "SUMA"){
             	 try {
             		 	janelaLIBRAS.getGIF().setIcon(
-            		 			new ImageIcon(AjudaAnimada.class.getResource("/ufrj/lipe/librasoffice/sinais/"+comando+".gif"))
+            		 			new ImageIcon(AjudaEmLIBRAS.class.getResource("/ufrj/lipe/librasoffice/sinais/"+comando+".gif"))
             		    );
             		 	janelaLIBRAS.getLegenda().setText(line);
             		 }
             	 catch (Exception e){e.printStackTrace();};
             	 if (comando == "FUNCOES"){
-                 	CalcAdapter.getGUI().getFrame().setVisible(true);
+//                 	CalcAdapter.getGUI().getFrame().setVisible(true);
             	 }
              }
              else {
