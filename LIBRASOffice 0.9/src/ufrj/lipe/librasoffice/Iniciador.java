@@ -5,7 +5,7 @@ import java.io.FileReader;
 
 import ufrj.lipe.librasoffice.librasgui.AjudaEmLIBRAS;
 // 
-public class LASOFront {  
+public class Iniciador {  
     //static Object LODesktop = null;   // Classe necessária para conectar o LibrasOffice no LibreOffice
     //static XDispatchHelper xDHelper = null; //""
 	static AjudaEmLIBRAS janelaLIBRAS;  //AjudaEmLIBRAS é a classe onde estão os gifs de libras

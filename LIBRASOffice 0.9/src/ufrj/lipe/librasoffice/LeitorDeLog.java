@@ -11,7 +11,7 @@ import ufrj.lipe.librasoffice.librasgui.AjudaEmLIBRAS;
 
 /**
  * Classe LeitorDeLog
- * Monitora o log de saída gerado pelo LASOFront
+ * Monitora o log de saída gerado pelo Iniciador
  */
 public class LeitorDeLog implements Runnable {
 
@@ -27,7 +27,7 @@ public class LeitorDeLog implements Runnable {
   // Construtores e Destrutores
   
   public LeitorDeLog (FileReader fr) {
-	  janelaLIBRAS = LASOFront.janelaLIBRAS;
+	  janelaLIBRAS = Iniciador.janelaLIBRAS;
 	  aval = new AvaliadorSemantico(); 
 	  this.lasoLog = fr;
   }
