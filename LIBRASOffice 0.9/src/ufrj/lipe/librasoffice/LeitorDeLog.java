@@ -84,16 +84,19 @@ public class LeitorDeLog implements Runnable {
 					System.out.println(comando);
 					if (comando != "SUMA") {
 						try {
+							janelaLIBRAS.getLegenda().setText(line);
+							janelaLIBRAS.setAssistente(false);
+							if (comando == "OPCAO_240") {
+								janelaLIBRAS.setAssistente(true);
+							}
 							janelaLIBRAS.getGIF().setIcon(new ImageIcon(AjudaEmLIBRAS.class
 									.getResource("/ufrj/lipe/librasoffice/sinais/" + comando + ".gif")));
-							janelaLIBRAS.getLegenda().setText(line);
+
 						} catch (Exception e) {
 							e.printStackTrace();
 						}
 						;
-						if (comando == "FUNCOES") {
-							// CalcAdapter.getGUI().getFrame().setVisible(true);
-						}
+
 					} else {
 						janelaLIBRAS.getJanelaPrincipal().setVisible(false);
 						janelaLIBRAS.getGIF().setIcon(null);

@@ -47,10 +47,9 @@ public class AvaliadorSemantico {
 		} else if (texto.contains("número")) {
 			comando = "NUMERO_240";
 		}
-		/*
-		 * else if(texto.contains("funcoes") || texto.contains("funç")){ comando =
-		 * "OPCAO_240"; }
-		 */
+		else if(texto.contains("funcoes") || texto.contains("funç")){
+			comando = "OPCAO_240";			
+		}
 		else if (texto.contains("pdf")) {
 			comando = "PDF";
 		} else if (texto.contains("porcent")) {

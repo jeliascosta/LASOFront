@@ -10,19 +10,20 @@ import java.awt.Toolkit;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
-import javax.swing.JButton;
-import javax.swing.ImageIcon;
-import javax.swing.JPanel;
 
 public class AjudaEmLIBRAS {
 
 	private JFrame janelaPrincipal;
 	private JLabel gifLIBRAS, legendaPortugues;
+	private JButton btnAssistente;
+	boolean assistenciado = false;
+
 
 	/**
 	 * Launch the application.
@@ -55,11 +56,10 @@ public class AjudaEmLIBRAS {
 			int gifWidth = gifLIBRAS.getIcon().getIconWidth();
 			int gifHeight = gifLIBRAS.getIcon().getIconHeight();
 			int legendHeight = legendaPortugues.getHeight();
-			int legendWidth = legendaPortugues.getWidth();
-			int optPanelHeight = legendaPortugues.getHeight();
-			int optPanelWidth = legendaPortugues.getWidth();
-			System.out.println(legendHeight+" - "+legendWidth);
-			
+			int enableBtn = (assistenciado)?1:0;
+			int btnHeight = btnAssistente.getHeight();
+			int showBtn = btnHeight * enableBtn;
+		
 			maxRight = (int) (dim.getWidth() - gifWidth);
 			maxBottom = (int) (dim.getHeight() - gifHeight);
 			int X = (int) mouse.getX() - gifWidth / 2;
@@ -74,12 +74,12 @@ public class AjudaEmLIBRAS {
 			else if (Y > maxBottom)
 				Y = maxBottom + 20;
 
-			janelaPrincipal.setBounds(0, 0, gifWidth, gifHeight + legendHeight);
+			janelaPrincipal.setBounds(0, 0, gifWidth, gifHeight + legendHeight + showBtn);
 			gifLIBRAS.setBounds(0, 0, gifWidth, gifHeight);
-			legendaPortugues.setBounds(0, gifHeight, legendWidth, legendHeight);
+			legendaPortugues.setBounds(0, gifHeight, gifWidth, legendHeight);
+			btnAssistente.setBounds(0, gifHeight + legendHeight, gifWidth, btnHeight);
 
 			janelaPrincipal.setLocation(X, Y);
-			System.err.println(X + " " + Y);
 
 			try {
 				System.out.println(gifLIBRAS.getIcon());
@@ -98,7 +98,7 @@ public class AjudaEmLIBRAS {
 	 */
 	private void initialize() {
 		janelaPrincipal = new JFrame();
-		janelaPrincipal.setBounds(0, 0, 220, 450);
+		janelaPrincipal.setBounds(0, 0, 220, 261);
 		// frame.setMaximumSize(new Dimension(270, 240));
 		janelaPrincipal.setPreferredSize(new Dimension(0, 0));
 		// frame.getContentPane().setMaximumSize(new Dimension(270, 240));
@@ -112,29 +112,30 @@ public class AjudaEmLIBRAS {
 		janelaPrincipal.getContentPane().setLayout(null);
 
 		gifLIBRAS = new JLabel("");
-		gifLIBRAS.setBounds(0, 0, 220, 400);
+		gifLIBRAS.setBounds(0, 0, 220, 190);
 		gifLIBRAS.addPropertyChangeListener(new PropertyChangeListener() {
 			public void propertyChange(PropertyChangeEvent evt) {
 				labelPropertyChange(evt);
 			}
 		});
+				
+				btnAssistente = new JButton("ASSISTENTE");
+				btnAssistente.setBounds(0, 230, 220, 30);
+				janelaPrincipal.getContentPane().add(btnAssistente);
+				btnAssistente.setAlignmentX(Component.CENTER_ALIGNMENT);
+				btnAssistente.setIcon(null);
 		
-		JButton btnNB = new JButton("wefewfe");
-		btnNB.setBounds(109, 400, 75, 50);
-		janelaPrincipal.getContentPane().add(btnNB);
-		btnNB.setIcon(null);
+				legendaPortugues = new JLabel("Legenda");
+				legendaPortugues.setAlignmentX(Component.CENTER_ALIGNMENT);
+				legendaPortugues.setBounds(0, 190, 220, 40);
+				janelaPrincipal.getContentPane().add(legendaPortugues);
+				// legendaPortugues.setAlignmentX(JLabel.CENTER_ALIGNMENT);
+				legendaPortugues.setHorizontalAlignment(SwingConstants.CENTER);
 		gifLIBRAS.setAlignmentX(Component.CENTER_ALIGNMENT);
 		// label.setMaximumSize(new Dimension(270, 240));
 		// label.setPreferredSize(new Dimension(270, 240));
 		gifLIBRAS.setToolTipText("");
 		janelaPrincipal.getContentPane().add(gifLIBRAS);
-
-		legendaPortugues = new JLabel("TESTE");
-		// legendaPortugues.setAlignmentX(JLabel.CENTER_ALIGNMENT);
-		legendaPortugues.setHorizontalAlignment(SwingConstants.CENTER);
-
-		legendaPortugues.setBounds(0, 400, 113, 50);
-		janelaPrincipal.getContentPane().add(legendaPortugues);
 	}
 
 	public JFrame getJanelaPrincipal() {
@@ -147,5 +148,9 @@ public class AjudaEmLIBRAS {
 
 	public JLabel getLegenda() {
 		return legendaPortugues;
+	}
+	
+	public void setAssistente(boolean set) {
+		assistenciado = set;
 	}
 }
