@@ -55,7 +55,7 @@ public class Iniciador {
 		// Caso o arquivo tenha sido aberto, é impressa a mensagem de que foi encontrado e aberto.
 		System.err.println("LASO.log foi encontrado e aberto!");
 		
-		// Um novo objeto "AjudaEmLIBRAS" é armazenado
+		// Um novo objeto "AjudaEmLIBRAS" é armazenado.
 		janelaLIBRAS = new AjudaEmLIBRAS();
 		
 		LeitorDeLog cLog = new LeitorDeLog(fr);

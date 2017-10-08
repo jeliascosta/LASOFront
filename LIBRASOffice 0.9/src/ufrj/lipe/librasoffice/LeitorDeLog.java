@@ -57,17 +57,10 @@ public class LeitorDeLog implements Runnable {
 		return comando;
 	}
 
-	/**
-	 * @return the fgui
-	 */
 	// public FormulaHelperGUI getFgui() {
 	// return fgui;
 	// }
 
-	/**
-	 * @param fgui
-	 *            the fgui to set
-	 */
 	// public void setFgui(FormulaHelperGUI fgui) {
 	// this.fgui = fgui;
 	// }
@@ -104,7 +97,7 @@ public class LeitorDeLog implements Runnable {
 					} else {
 						janelaLIBRAS.getJanelaPrincipal().setVisible(false);
 						janelaLIBRAS.getGIF().setIcon(null);
-						janelaLIBRAS.getLegenda().setText(null);
+						janelaLIBRAS.getLegenda().setText("Sinal ainda não presente. Mandeu seu sinal!");
 					}
 				}
 			}

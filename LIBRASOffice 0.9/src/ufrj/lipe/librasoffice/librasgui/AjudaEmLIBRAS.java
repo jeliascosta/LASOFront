@@ -15,6 +15,9 @@ import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
+import javax.swing.JButton;
+import javax.swing.ImageIcon;
+import javax.swing.JPanel;
 
 public class AjudaEmLIBRAS {
 
@@ -52,7 +55,11 @@ public class AjudaEmLIBRAS {
 			int gifWidth = gifLIBRAS.getIcon().getIconWidth();
 			int gifHeight = gifLIBRAS.getIcon().getIconHeight();
 			int legendHeight = legendaPortugues.getHeight();
-
+			int legendWidth = legendaPortugues.getWidth();
+			int optPanelHeight = legendaPortugues.getHeight();
+			int optPanelWidth = legendaPortugues.getWidth();
+			System.out.println(legendHeight+" - "+legendWidth);
+			
 			maxRight = (int) (dim.getWidth() - gifWidth);
 			maxBottom = (int) (dim.getHeight() - gifHeight);
 			int X = (int) mouse.getX() - gifWidth / 2;
@@ -69,7 +76,7 @@ public class AjudaEmLIBRAS {
 
 			janelaPrincipal.setBounds(0, 0, gifWidth, gifHeight + legendHeight);
 			gifLIBRAS.setBounds(0, 0, gifWidth, gifHeight);
-			legendaPortugues.setBounds(0, gifHeight, gifWidth, legendHeight);
+			legendaPortugues.setBounds(0, gifHeight, legendWidth, legendHeight);
 
 			janelaPrincipal.setLocation(X, Y);
 			System.err.println(X + " " + Y);
@@ -111,6 +118,11 @@ public class AjudaEmLIBRAS {
 				labelPropertyChange(evt);
 			}
 		});
+		
+		JButton btnNB = new JButton("wefewfe");
+		btnNB.setBounds(109, 400, 75, 50);
+		janelaPrincipal.getContentPane().add(btnNB);
+		btnNB.setIcon(null);
 		gifLIBRAS.setAlignmentX(Component.CENTER_ALIGNMENT);
 		// label.setMaximumSize(new Dimension(270, 240));
 		// label.setPreferredSize(new Dimension(270, 240));
@@ -121,7 +133,7 @@ public class AjudaEmLIBRAS {
 		// legendaPortugues.setAlignmentX(JLabel.CENTER_ALIGNMENT);
 		legendaPortugues.setHorizontalAlignment(SwingConstants.CENTER);
 
-		legendaPortugues.setBounds(0, 400, 220, 50);
+		legendaPortugues.setBounds(0, 400, 113, 50);
 		janelaPrincipal.getContentPane().add(legendaPortugues);
 	}
 
@@ -136,5 +148,4 @@ public class AjudaEmLIBRAS {
 	public JLabel getLegenda() {
 		return legendaPortugues;
 	}
-
 }
