@@ -23,15 +23,20 @@ public class Iniciador {
 	 * @return the log
 	 */
 	private static FileReader getLog() {
+		String LASO_LOG_PATH = "C:\\ProgramData\\LASO.log";
+		String soAtual = System.getProperty("os.name").toLowerCase();
+		System.err.println(soAtual);
+		if (soAtual.equals("linux") || soAtual.equals("unix"))
+			LASO_LOG_PATH = "/tmp/LASO.log";
+			
 		/**
 		 * Para abrir o arquivo Laso.log, é criada a variável fr, que se o arquivo for
 		 * aberto corretamente será retornado quando for impressa essa variável.
 		 */
 		FileReader fr = null;
-
 		// Verificando se arquivo de log existe ....
 		try {
-			fr = new FileReader("C:\\ProgramData\\LASO.log");
+			fr = new FileReader(LASO_LOG_PATH);
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
