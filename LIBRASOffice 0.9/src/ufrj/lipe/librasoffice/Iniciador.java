@@ -7,7 +7,6 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 
 import ufrj.lipe.librasoffice.librasgui.AjudaEmLIBRAS;
-import ufrj.lipe.librasoffice.librasgui.SinalIndisponivel;
 
 // 
 public class Iniciador {
@@ -17,7 +16,6 @@ public class Iniciador {
 
 	/** AjudaEmLIBRAS é a classe onde estão os gifs de libras. */
 	static AjudaEmLIBRAS janelaLIBRAS;
-	static SinalIndisponivel janelaIndisp;
 
 	/**
 	 * Gets the log.
@@ -59,7 +57,6 @@ public class Iniciador {
 		
 		// Um novo objeto "AjudaEmLIBRAS" é armazenado.
 		janelaLIBRAS = new AjudaEmLIBRAS();
-		janelaIndisp = new SinalIndisponivel();
 		
 		LeitorDeLog cLog = new LeitorDeLog(fr);
 		Thread tCL = new Thread(cLog);

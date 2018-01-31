@@ -6,7 +6,6 @@ import java.io.IOException;
 import javax.swing.ImageIcon;
 
 import ufrj.lipe.librasoffice.librasgui.AjudaEmLIBRAS;
-import ufrj.lipe.librasoffice.librasgui.SinalIndisponivel;
 //import ufrj.lipe.librasoffice.toDo.CalcAdapter;
 //import ufrj.lipe.librasoffice.toDo.FormulaHelperGUI;
 
@@ -24,7 +23,6 @@ public class LeitorDeLog implements Runnable {
 	/** The comando. */
 	private String comando = "";
 	private AjudaEmLIBRAS janelaLIBRAS;
-	private SinalIndisponivel janelaIndisp;
 	// private FormulaHelperGUI fgui = null;
 	private AvaliadorSemantico aval;
 	FileReader lasoLog;
@@ -33,7 +31,6 @@ public class LeitorDeLog implements Runnable {
 
 	public LeitorDeLog(FileReader fr) {
 		janelaLIBRAS = Iniciador.janelaLIBRAS;
-		janelaIndisp = Iniciador.janelaIndisp;
 		aval = new AvaliadorSemantico();
 		this.lasoLog = fr;
 	}
@@ -60,6 +57,14 @@ public class LeitorDeLog implements Runnable {
 		return comando;
 	}
 
+	// public FormulaHelperGUI getFgui() {
+	// return fgui;
+	// }
+
+	// public void setFgui(FormulaHelperGUI fgui) {
+	// this.fgui = fgui;
+	// }
+
 	// Other methods
 
 	@Override
@@ -74,27 +79,28 @@ public class LeitorDeLog implements Runnable {
 					Thread.sleep(300);
 				else {
 					System.out.println(line);
+					// CalcAdapter.getGUI().getFrame().setVisible(false);
 					comando = aval.avaliar(line);
-					System.err.println(line.isEmpty());
 					System.out.println(comando);
 					if (comando != "SUMA") {
-						janelaIndisp.getJanelaPrincipal().setVisible(false);
-						janelaLIBRAS.getJanelaPrincipal().setVisible(true);
-						janelaLIBRAS.getLegenda().setText(line);
-						janelaLIBRAS.setAssistente(false);
-						if (comando == "OPCAO_240")
-							janelaLIBRAS.setAssistente(true);
-						try { janelaLIBRAS.getGIF().setIcon(new ImageIcon(AjudaEmLIBRAS.class
-									.getResource("/ufrj/lipe/librasoffice/sinais/" + comando + ".gif"))); }
-						catch (Exception e) { e.printStackTrace(); }
+						try {
+							janelaLIBRAS.getLegenda().setText(line);
+							janelaLIBRAS.setAssistente(false);
+							if (comando == "OPCAO_240") {
+								janelaLIBRAS.setAssistente(true);
+							}
+							janelaLIBRAS.getGIF().setIcon(new ImageIcon(AjudaEmLIBRAS.class
+									.getResource("/ufrj/lipe/librasoffice/sinais/" + comando + ".gif")));
+
+						} catch (Exception e) {
+							e.printStackTrace();
+						}
+						;
+
 					} else {
 						janelaLIBRAS.getJanelaPrincipal().setVisible(false);
 						janelaLIBRAS.getGIF().setIcon(null);
-						if (!line.isEmpty()) {
-							janelaIndisp.getJanelaPrincipal().setVisible(true);
-							janelaIndisp.getLegenda().setText(line);
-						}
-						else janelaIndisp.getJanelaPrincipal().setVisible(false);
+						janelaLIBRAS.getLegenda().setText("Sinal ainda não presente. Mandeu seu sinal!");
 					}
 				}
 			}
