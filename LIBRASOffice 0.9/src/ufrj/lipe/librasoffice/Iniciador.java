@@ -7,6 +7,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 
 import ufrj.lipe.librasoffice.librasgui.AjudaEmLIBRAS;
+import ufrj.lipe.librasoffice.librasgui.SinalIndisponivel;
 
 // 
 public class Iniciador {
@@ -16,6 +17,7 @@ public class Iniciador {
 
 	/** AjudaEmLIBRAS é a classe onde estão os gifs de libras. */
 	static AjudaEmLIBRAS janelaLIBRAS;
+	static SinalIndisponivel janelaIndisp;
 
 	/**
 	 * Gets the log.
@@ -23,15 +25,20 @@ public class Iniciador {
 	 * @return the log
 	 */
 	private static FileReader getLog() {
+		String LASO_LOG_PATH = "C:\\ProgramData\\LASO.log";
+		String soAtual = System.getProperty("os.name").toLowerCase();
+		System.err.println(soAtual);
+		if (soAtual.equals("linux") || soAtual.equals("unix"))
+			LASO_LOG_PATH = "/tmp/LASO.log";
+			
 		/**
 		 * Para abrir o arquivo Laso.log, é criada a variável fr, que se o arquivo for
 		 * aberto corretamente será retornado quando for impressa essa variável.
 		 */
 		FileReader fr = null;
-
 		// Verificando se arquivo de log existe ....
 		try {
-			fr = new FileReader("C:\\ProgramData\\LASO.log");
+			fr = new FileReader(LASO_LOG_PATH);
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
@@ -57,6 +64,7 @@ public class Iniciador {
 		
 		// Um novo objeto "AjudaEmLIBRAS" é armazenado.
 		janelaLIBRAS = new AjudaEmLIBRAS();
+		janelaIndisp = new SinalIndisponivel();
 		
 		LeitorDeLog cLog = new LeitorDeLog(fr);
 		Thread tCL = new Thread(cLog);
