@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <class-diagram version="1.2.1" icons="true" automaticImage="PNG" always-add-relationships="true" generalizations="true" 
   realizations="true" associations="true" dependencies="true" nesting-relationships="true" router="FAN">  
-  <class id="1" language="java" name="ufrj.lipe.librasoffice.LeitorDeLog" project="LIBRASOffice 0.9.8" 
+  <class id="1" language="java" name="ufrj.lipe.librasoffice.InterpretadorDeLog" project="LIBRASOffice 0.9.8" 
     file="/LIBRASOffice 0.9.8/src/ufrj/lipe/librasoffice/LeitorDeLog.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="317" y="278"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" 

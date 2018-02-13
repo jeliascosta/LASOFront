@@ -16,8 +16,9 @@ public class Iniciador {
 	// static XDispatchHelper xDHelper = null;
 
 	/** AjudaEmLIBRAS é a classe onde estão os gifs de libras. */
-	static AjudaEmLIBRAS janelaLIBRAS;
-	static SinalIndisponivel janelaIndisp;
+	public static AjudaEmLIBRAS janelaLIBRAS;
+	public static SinalIndisponivel janelaIndisp;
+	public static InterpretadorDeLog cLog;
 
 	/**
 	 * Gets the log.
@@ -35,14 +36,14 @@ public class Iniciador {
 		 * Para abrir o arquivo Laso.log, é criada a variável fr, que se o arquivo for
 		 * aberto corretamente será retornado quando for impressa essa variável.
 		 */
-		FileReader fr = null;
+		FileReader logReader = null;
 		// Verificando se arquivo de log existe ....
 		try {
-			fr = new FileReader(LASO_LOG_PATH);
+			logReader = new FileReader(LASO_LOG_PATH);
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
-		return fr;
+		return logReader;
 	}
 
 	/**
@@ -53,21 +54,22 @@ public class Iniciador {
 	 */
 	public static void main(String[] args) {
 		// Caso o arquivo não tenha sido aberto é impressa uma mensagem de erro ao executar.
-		FileReader fr = getLog();
-		if (fr == null) {
+		FileReader logReader = getLog();
+		
+		if (logReader == null) {
 			System.err.println("LASO.log não foi encontrado!\nSaindo ....");
 			System.exit(1);
 		}
-		
 		// Caso o arquivo tenha sido aberto, é impressa a mensagem de que foi encontrado e aberto.
 		System.err.println("LASO.log foi encontrado e aberto!");
-		
-		// Um novo objeto "AjudaEmLIBRAS" é armazenado.
+
+		// Um novo objeto "AjudaEmLIBRAS" é instanciado.
 		janelaLIBRAS = new AjudaEmLIBRAS();
 		janelaIndisp = new SinalIndisponivel();
-		
-		LeitorDeLog cLog = new LeitorDeLog(fr);
+
+		cLog = new InterpretadorDeLog(logReader);
 		Thread tCL = new Thread(cLog);
 		tCL.start();
+		
 	}
 }

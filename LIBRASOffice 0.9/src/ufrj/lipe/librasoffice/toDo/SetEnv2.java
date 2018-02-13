@@ -17,7 +17,7 @@
 //////  * For pipe connection:   soffice --accept="pipe,name=yourpipename;urp;" 
 //public class SetEnv2 {
 ////    static AjudaEmLIBRAS JanelaLIBRAS = null;
-////    static LeitorDeLog LC = null;
+////    static InterpretadorDeLog LC = null;
 ////    static Object LODesktop = null;
 ////    static XDispatchHelper xDHelper = null;
 ////	static boolean logFound = false;
@@ -45,7 +45,7 @@
 ////
 ////		System.err.println("LASO.log foi encontrado e aberto!");
 ////		//TODO Implementar esquema notify command?
-////		new LeitorDeLog(lasoLog).start();
+////		new InterpretadorDeLog(lasoLog).start();
 ////		
 ////		/*
 ////       try {
