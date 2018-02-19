@@ -21,6 +21,7 @@ import javax.swing.UnsupportedLookAndFeelException;
 import ufrj.lipe.librasoffice.Iniciador;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import javax.swing.border.BevelBorder;
 
 public abstract class JanelaFlutuanteLIBRAS {
 	
@@ -28,7 +29,7 @@ public abstract class JanelaFlutuanteLIBRAS {
 	protected JLabel gifLIBRAS;
 	protected JLabel legendaPortugues;
 	protected JButton btnAssistente;
-	protected boolean assistenciado = false;
+	protected boolean assistenciado = false, gifEntrou = false, gifSaiu=false, frameEntrou=false, frameSaiu=false;
 	
 	protected void setUILook(){
 		try {
@@ -90,6 +91,17 @@ public abstract class JanelaFlutuanteLIBRAS {
 	 */
 	public void initSuper() {
 		janelaPrincipal = new JFrame();
+		janelaPrincipal.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				System.err.println("MOUSE ENTROU NO FRAME");
+			}
+			@Override
+			public void mouseExited(MouseEvent e) {
+				System.err.println("MOUSE SAIU DO FRAME");
+			}
+		});
+
 		janelaPrincipal.setVisible(false);
 		janelaPrincipal.setBounds(0, 0, 220, 261);
 		janelaPrincipal.setPreferredSize(new Dimension(0, 0));
@@ -104,14 +116,15 @@ public abstract class JanelaFlutuanteLIBRAS {
 		gifLIBRAS = new JLabel("");
 		gifLIBRAS.addMouseListener(new MouseAdapter() {
 			@Override
-			public void mouseEntered(MouseEvent arg0) {
-				System.err.println("MOUSE ENTROU NA REGIÃO DO GIF");
+			public void mouseEntered(MouseEvent e) {
+				System.err.println("MOUSE ENTROU NO GIF");
 			}
 			@Override
 			public void mouseExited(MouseEvent e) {
-				System.err.println("MOUSE SAIU DA REGIÃO DO GIF");
+				System.err.println("MOUSE SAIU DO GIF");
 			}
 		});
+		gifLIBRAS.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
 		gifLIBRAS.setBounds(0, 0, 0, 0);
 		gifLIBRAS.setAlignmentX(Component.CENTER_ALIGNMENT);
 		gifLIBRAS.setToolTipText("");
