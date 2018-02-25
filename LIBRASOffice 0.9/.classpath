@@ -25,6 +25,6 @@
 	<classpathentry kind="lib" path="lib/jsr305-1.3.9.jar"/>
 	<classpathentry kind="lib" path="lib/servlet-api-2.5-20081211.jar"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/LIBRASOffice GIFs"/>
-	<classpathentry kind="con" path="org.libreoffice.ide.eclipse.java.OOO_CONTAINER/LibreOffice 5.3 #1"/>
+	<classpathentry kind="con" path="org.libreoffice.ide.eclipse.java.OOO_CONTAINER/LibreOffice 5.3"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
