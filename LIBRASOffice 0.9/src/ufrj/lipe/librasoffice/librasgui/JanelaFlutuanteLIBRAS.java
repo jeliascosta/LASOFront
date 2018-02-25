@@ -99,7 +99,8 @@ public abstract class JanelaFlutuanteLIBRAS {
 			@Override
 			public void mouseExited(MouseEvent e) {
 				System.err.println("MOUSE SAIU DO FRAME");
-				janelaPrincipal.setVisible(false);
+				if (janelaPrincipal.getMousePosition(true) == null)
+					janelaPrincipal.setVisible(false);
 			}
 		});
 
