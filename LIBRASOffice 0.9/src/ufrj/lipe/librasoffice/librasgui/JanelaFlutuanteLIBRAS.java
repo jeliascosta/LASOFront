@@ -44,7 +44,7 @@ public abstract class JanelaFlutuanteLIBRAS {
 	public void reposJanela(java.beans.PropertyChangeEvent evt) {
 		Point mouse = MouseInfo.getPointerInfo().getLocation();
 		int X = (int) mouse.getX() - janelaPrincipal.getWidth() / 2;
-		int Y = (int) mouse.getY() + 20;
+		int Y = (int) mouse.getY() + 10;
 		Rectangle dim = GraphicsEnvironment.getLocalGraphicsEnvironment().getMaximumWindowBounds();
 		int minLeft = 0, minTop = 0;
 		int maxRight = (int) (dim.getWidth() - janelaPrincipal.getWidth());
@@ -78,8 +78,8 @@ public abstract class JanelaFlutuanteLIBRAS {
 		
 		if (X < minLeft)		X = minLeft;
 		else if (X > maxRight)	X = maxRight;
-		if (Y < minTop)			Y = minTop + 20;
-		else if (Y > maxBottom)	Y = maxBottom + 20;
+		if (Y < minTop)			Y = minTop + 10;
+		else if (Y > maxBottom)	Y = maxBottom + 10;
 		
 		if(Iniciador.cLog.getTipoWidget() == TiposWidget.TOOLTIP) 	janelaPrincipal.setLocation(X, Y);
 		else if(Iniciador.cLog.getTipoWidget() == TiposWidget.MENU) janelaPrincipal.setLocation(dim.width-gifWidth, 0);
@@ -99,6 +99,7 @@ public abstract class JanelaFlutuanteLIBRAS {
 			@Override
 			public void mouseExited(MouseEvent e) {
 				System.err.println("MOUSE SAIU DO FRAME");
+				janelaPrincipal.setVisible(false);
 			}
 		});
 
@@ -114,20 +115,9 @@ public abstract class JanelaFlutuanteLIBRAS {
 		janelaPrincipal.getContentPane().setLayout(null);
 		
 		gifLIBRAS = new JLabel("");
-		gifLIBRAS.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseEntered(MouseEvent e) {
-				System.err.println("MOUSE ENTROU NO GIF");
-			}
-			@Override
-			public void mouseExited(MouseEvent e) {
-				System.err.println("MOUSE SAIU DO GIF");
-			}
-		});
-		gifLIBRAS.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
+		//gifLIBRAS.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
 		gifLIBRAS.setBounds(0, 0, 0, 0);
 		gifLIBRAS.setAlignmentX(Component.CENTER_ALIGNMENT);
-		gifLIBRAS.setToolTipText("");
 		
 		legendaPortugues = new JLabel("Legenda");
 		legendaPortugues.setBounds(10, 13, 220, 40);		

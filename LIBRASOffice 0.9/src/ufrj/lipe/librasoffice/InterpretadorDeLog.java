@@ -75,11 +75,11 @@ public class InterpretadorDeLog implements Runnable {
 				String line = logReader.readLine();
 				if (line == null) Thread.sleep(300);
 				else {
-					System.out.println(line);
 					comando = aval.avaliar(line);
-					System.err.println(line.isEmpty());
-					System.out.println(comando);
+					System.err.println("LINHA VAZIA? "+line.isEmpty());
+					System.err.println("COMANDO RETORNADO: "+comando);
 					if (!comando.equals("SUMIR") && !comando.equals("NULO")) {
+						System.err.println("comando diff sumir nulo");
 						jnIndisp.getJanelaPrincipal().setVisible(false);
 						
 						jnAjudaLIBRAS.getJanelaPrincipal().setVisible(true);
@@ -92,6 +92,8 @@ public class InterpretadorDeLog implements Runnable {
 						
 						jnAjudaLIBRAS.getLegenda().setText(aval.getComando());
 					} else {
+						System.err.println("comando eq sumir nulo");
+						
 						jnAjudaLIBRAS.getJanelaPrincipal().setVisible(false);
 						jnAjudaLIBRAS.getGIF().setIcon(null);
 						

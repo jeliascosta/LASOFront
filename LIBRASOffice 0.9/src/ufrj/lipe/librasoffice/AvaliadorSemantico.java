@@ -18,8 +18,10 @@ public class AvaliadorSemantico {
 		String[] dadosLog = linhaLog.split(":");
 		tipoWidget = dadosLog[0].replaceAll(":", "").trim().toLowerCase();
 		comandoLibras = "SUMIR";
+		System.err.println(dadosLog.length);
 		if (dadosLog.length > 1) comando = dadosLog[1].trim();
-		else comandoLibras = "NULO";
+		else { comandoLibras = "NULO"; return comandoLibras; }
+		System.err.println("AVALIADOR INCIAL: "+comandoLibras);
 		String comando_lwrc = comando.toLowerCase();
 		if (comando_lwrc.contains("abrir")) {
 			comandoLibras = "ABRIR";
@@ -105,7 +107,7 @@ public class AvaliadorSemantico {
 				comandoLibras = "ORDENAR DESCRECENTE";
 			else if (comando_lwrc.contains("ordenar") || comando_lwrc.contains("crescente"))
 				comandoLibras = "ORDENAR_CRESCENTE";
-		} else if (comando_lwrc.contains("pdf")) {
+		} else if (comando_lwrc.contains("exportar") && comando_lwrc.contains("pdf")) {
 			comandoLibras = "PDF";
 		} else if (comando_lwrc.contains("porcent")) {
 			comandoLibras = "PORCENTAGEM_240";
