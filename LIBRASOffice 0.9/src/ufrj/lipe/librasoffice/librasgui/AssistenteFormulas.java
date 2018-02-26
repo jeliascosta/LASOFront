@@ -21,7 +21,7 @@ import com.sun.star.lang.IndexOutOfBoundsException;
 import ufrj.lipe.librasoffice.ControladorUNO;
 
 public class AssistenteFormulas extends JFrame {
-	
+
 	public static boolean aberto = false;
 	private JTextField initialCell;
 	private JTextField finalCell;
