@@ -1,8 +1,12 @@
 package ufrj.lipe.librasoffice.librasgui;
 
 import java.awt.Component;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 import javax.swing.JButton;
+
+import ufrj.lipe.librasoffice.ControladorUNO;
 
 public class AjudaEmLIBRAS extends JanelaFlutuanteLIBRAS {
 
@@ -26,6 +30,18 @@ public class AjudaEmLIBRAS extends JanelaFlutuanteLIBRAS {
 		btnAssistente.setBounds(0, 230, 220, 30);
 		btnAssistente.setAlignmentX(Component.CENTER_ALIGNMENT);
 		btnAssistente.setIcon(null);
+		
+		btnAssistente.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				System.err.println("CLICOU NO BOTÃO");
+				if (!AssistenteFormulas.aberto) {
+					AssistenteFormulas AF = new AssistenteFormulas();
+					AF.setVisible(true);
+				}
+				janelaPrincipal.setVisible(false);
+			}
+		});
 		
 		janelaPrincipal.getContentPane().add(btnAssistente);
 	}

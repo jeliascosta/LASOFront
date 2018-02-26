@@ -1,22 +1,17 @@
-package ufrj.lipe.librasoffice.toDo;
+package ufrj.lipe.librasoffice;
 
 import com.artofsolving.jodconverter.openoffice.connection.AbstractOpenOfficeConnection;
 import com.artofsolving.jodconverter.openoffice.connection.SocketOpenOfficeConnection;
-import com.sun.star.beans.PropertyValue;
-import com.sun.star.container.XElementAccess;
 import com.sun.star.frame.XController;
 import com.sun.star.frame.XDesktop;
 import com.sun.star.frame.XDispatchHelper;
-import com.sun.star.frame.XDispatchProvider;
-import com.sun.star.frame.XFrame;
 import com.sun.star.frame.XModel;
+import com.sun.star.lang.IndexOutOfBoundsException;
 import com.sun.star.lang.XComponent;
 //import com.artofsolving.jodconverter.openoffice.connection.PipeOpenOfficeConnection;
 import com.sun.star.lang.XMultiComponentFactory;
 import com.sun.star.sheet.XSpreadsheet;
-import com.sun.star.sheet.XSpreadsheetDocument;
 import com.sun.star.sheet.XSpreadsheetView;
-import com.sun.star.sheet.XSpreadsheets;
 import com.sun.star.table.XCell;
 import com.sun.star.uno.UnoRuntime;
 import com.sun.star.uno.XComponentContext;
@@ -26,11 +21,12 @@ import com.sun.star.uno.XComponentContext;
 //  * For socket connection: soffice --accept="socket,host=localhost,port=8100,tcpNoDelay=1;urp;"
 //  * For pipe connection:   soffice --accept="pipe,name=yourpipename;urp;"
 
-public class SetEnv2 {
-	static Object LODesktop = null;
-	static XDispatchHelper xDHelper = null;
+public class ControladorUNO {
+	private Object LODesktop;
+	private XDispatchHelper xDHelper;
+	private XDesktop xDesk;
 
-	public static void main(String[] args) {
+	public ControladorUNO(){
 		AbstractOpenOfficeConnection cnx = null;
 
 		try {
@@ -48,8 +44,19 @@ public class SetEnv2 {
 				Object disper = xCCSM.createInstanceWithContext("com.sun.star.frame.DispatchHelper", xCtx);
 				xDHelper = UnoRuntime.queryInterface(XDispatchHelper.class, disper);
 
-				XDesktop xDesk = (XDesktop) UnoRuntime.queryInterface(XDesktop.class, LODesktop);
-
+				xDesk = (XDesktop) UnoRuntime.queryInterface(XDesktop.class, LODesktop);
+			}
+		}
+		catch (Exception e) { e.printStackTrace(); }
+		/*finally {
+			if (cnx != null) {
+				System.out.println("Disconnecting from OOo...");
+				cnx.disconnect();
+			}
+		}*/
+	}
+	
+	public void testarRotina() throws IndexOutOfBoundsException {
 				XComponent xC = xDesk.getCurrentComponent();
 
 				XModel xM = UnoRuntime.queryInterface(XModel.class,xC);
@@ -71,15 +78,23 @@ public class SetEnv2 {
 				xCell = xSpreadsheet.getCellRangeByName("C2").getCellByPosition(0, 0);
 				xCell.setFormula("=sum(A1;A10)");
 				xCell = xSpreadsheet.getCellRangeByName("d1").getCellByPosition(0, 0);
-				xCell.setFormula("=max(A1:B5)");
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		} finally {
-			if (cnx != null) {
-				System.out.println("Disconnecting from OOo...");
-				cnx.disconnect();
-			}
-		}
+				xCell.setFormula("=max(A1:B5)"); 
+	}
+	
+	public void insereFormula(String iC, String fC, String rC, String formula, boolean isRange) throws IndexOutOfBoundsException {
+		System.err.println(iC+"-"+fC+"-"+rC+"-"+formula+"-"+isRange);
+		XComponent xC = xDesk.getCurrentComponent();
+
+		XModel xM = UnoRuntime.queryInterface(XModel.class,xC);
+
+		XController xSpreadsheetController = xM.getCurrentController();
+		
+		XSpreadsheetView xSpreadsheetView = (XSpreadsheetView) UnoRuntime.queryInterface(XSpreadsheetView.class, xSpreadsheetController);
+
+		XSpreadsheet xSpreadsheet = xSpreadsheetView.getActiveSheet();
+
+		XCell xCell = xSpreadsheet.getCellRangeByName(rC).getCellByPosition(0, 0);
+		String range = (isRange)?(":"):(";");
+		xCell.setFormula("="+formula+"("+iC+range+fC+")"); 
 	}
 }

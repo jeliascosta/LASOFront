@@ -121,7 +121,7 @@ public abstract class JanelaFlutuanteLIBRAS {
 		gifLIBRAS.setAlignmentX(Component.CENTER_ALIGNMENT);
 		
 		legendaPortugues = new JLabel("Legenda");
-		legendaPortugues.setBounds(10, 13, 220, 40);		
+		legendaPortugues.setBounds(0, 13, 220, 40);		
 		legendaPortugues.setAlignmentX(Component.CENTER_ALIGNMENT);
 		legendaPortugues.setHorizontalAlignment(SwingConstants.CENTER);
 		legendaPortugues.addPropertyChangeListener(new PropertyChangeListener() {
