@@ -8,9 +8,6 @@ import javax.swing.JButton;
 
 public class AjudaEmLIBRAS extends JanelaFlutuanteLIBRAS {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 
 	/**
@@ -28,7 +25,7 @@ public class AjudaEmLIBRAS extends JanelaFlutuanteLIBRAS {
 
 		gifLIBRAS.setBounds(0, 0, 220, 190);
 		
-		btnAssistente = new JButton("ASSISTENTE");
+		btnAssistente = new JButton("ASSISTENTE DE FÓRMULAS EM LIBRAS");
 		btnAssistente.setBounds(0, 230, 220, 30);
 		btnAssistente.setAlignmentX(Component.CENTER_ALIGNMENT);
 		btnAssistente.setIcon(null);

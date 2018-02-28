@@ -5,9 +5,6 @@ import javax.swing.JLabel;
 
 public class SinalIndisponivel extends JanelaFlutuanteLIBRAS {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 
 	/**

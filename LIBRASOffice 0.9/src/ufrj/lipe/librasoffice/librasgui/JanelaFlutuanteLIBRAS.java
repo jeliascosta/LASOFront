@@ -17,17 +17,13 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
-import javax.swing.UIManager;
-import javax.swing.UnsupportedLookAndFeelException;
 
 import ufrj.lipe.librasoffice.Iniciador;
 
 public abstract class JanelaFlutuanteLIBRAS extends JFrame {
 	
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
+	
 	//protected JFrame janelaPrincipal = this;
 	protected JLabel gifLIBRAS;
 	protected JLabel legendaPortugues;
@@ -37,16 +33,6 @@ public abstract class JanelaFlutuanteLIBRAS extends JFrame {
 	protected void escondeJanela() {
 		if (getMousePosition(true) == null) {
 			setVisible(false);
-		}		
-	}
-	
-	private void setUILook(){
-		try {
-			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-		} catch (ClassNotFoundException | InstantiationException | IllegalAccessException
-				| UnsupportedLookAndFeelException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
 		}		
 	}
 	
@@ -99,7 +85,6 @@ public abstract class JanelaFlutuanteLIBRAS extends JFrame {
 	 * @wbp.parser.entryPoint
 	 */
 	public void initSuper() {
-		setUILook();
 		addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseEntered(MouseEvent e) {

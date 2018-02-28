@@ -24,10 +24,8 @@ import ufrj.lipe.librasoffice.ControladorUNO;
 
 public class AssistenteFormulas extends JFrame {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
+	
 	public static boolean aberto = false;
 	private JTextField initialCell;
 	private JTextField finalCell;
@@ -35,7 +33,7 @@ public class AssistenteFormulas extends JFrame {
 	private String formula = ""; 
 	private JPanel opcoesDeFormula;
 	private JPanel camposDaFormula;
-	JCheckBox isCellRange;
+	private JCheckBox isCellRange;
 	
 	private void exibirCampos(boolean enableRange) {
 		opcoesDeFormula.setVisible(false);
@@ -168,6 +166,7 @@ public class AssistenteFormulas extends JFrame {
 		btnMdia.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				formula = "sub";
+				exibirCampos(true);
 			}
 		});
 		btnMdia.setBounds(121, 0, 110, 20);
@@ -207,7 +206,7 @@ public class AssistenteFormulas extends JFrame {
 		btnRaizQuadrada.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				formula = "sub";
-				exibirCampos(true);
+				exibirCampos(false);
 			}
 		});
 		btnRaizQuadrada.setFont(new Font("Tahoma", Font.PLAIN, 12));
@@ -230,7 +229,7 @@ public class AssistenteFormulas extends JFrame {
 		button_2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				formula = "sum";
-				exibirCampos(false);
+				exibirCampos(true);
 			}
 		});
 	}

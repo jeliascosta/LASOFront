@@ -6,6 +6,9 @@ package ufrj.lipe.librasoffice;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
+
 import ufrj.lipe.librasoffice.librasgui.AjudaEmLIBRAS;
 import ufrj.lipe.librasoffice.librasgui.SinalIndisponivel;
 
@@ -63,6 +66,14 @@ public class Iniciador {
 		// Caso o arquivo tenha sido aberto, é impressa a mensagem de que foi encontrado e aberto.
 		System.err.println("LASO.log foi encontrado e aberto!");
 
+		try {
+			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+		} catch (ClassNotFoundException | InstantiationException | IllegalAccessException
+				| UnsupportedLookAndFeelException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}	
+		
 		// Um novo objeto "AjudaEmLIBRAS" é instanciado.
 		janelaLIBRAS = new AjudaEmLIBRAS();
 		janelaIndisp = new SinalIndisponivel();
