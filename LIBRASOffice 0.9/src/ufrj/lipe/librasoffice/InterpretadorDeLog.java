@@ -78,7 +78,8 @@ public class InterpretadorDeLog implements Runnable {
 					comando = aval.avaliar(line);
 					System.err.println("LINHA VAZIA? "+line.isEmpty());
 					System.err.println("COMANDO RETORNADO: "+comando);
-					if (!comando.equals("SUMIR") && !comando.equals("NULO")) {
+					if (comando.equals("NULO")) {}
+					else if (!comando.equals("SUMIR")/* && !comando.equals("NULO")*/) {
 						System.err.println("comando diff sumir nulo");
 						jnIndisp.getJanelaPrincipal().setVisible(false);
 						

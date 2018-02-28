@@ -41,6 +41,10 @@ public class AjudaEmLIBRAS extends JanelaFlutuanteLIBRAS {
 				}
 				janelaPrincipal.setVisible(false);
 			}
+			public void mouseExited(MouseEvent e) {
+				System.err.println("SAIU DO BOTÃO");
+				escondeJanela();
+			}
 		});
 		
 		janelaPrincipal.getContentPane().add(btnAssistente);

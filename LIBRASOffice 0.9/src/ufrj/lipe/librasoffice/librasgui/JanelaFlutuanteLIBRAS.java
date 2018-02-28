@@ -31,6 +31,11 @@ public abstract class JanelaFlutuanteLIBRAS {
 	protected JButton btnAssistente;
 	protected boolean assistenciado = false, gifEntrou = false, gifSaiu=false, frameEntrou=false, frameSaiu=false;
 	
+	protected void escondeJanela() {
+		if (janelaPrincipal.getMousePosition(true) == null) {
+			janelaPrincipal.setVisible(false);
+		}		
+	}
 	protected void setUILook(){
 		try {
 			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
@@ -99,8 +104,7 @@ public abstract class JanelaFlutuanteLIBRAS {
 			@Override
 			public void mouseExited(MouseEvent e) {
 				System.err.println("MOUSE SAIU DO FRAME");
-				if (janelaPrincipal.getMousePosition(true) == null)
-					janelaPrincipal.setVisible(false);
+				escondeJanela();
 			}
 		});
 
