@@ -1,5 +1,6 @@
 package ufrj.lipe.librasoffice.librasgui;
 
+import java.awt.Font;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -15,15 +16,18 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.JTextPane;
 
 import com.sun.star.lang.IndexOutOfBoundsException;
 
 import ufrj.lipe.librasoffice.ControladorUNO;
-import java.awt.Font;
-import javax.swing.JTextPane;
 
 public class AssistenteFormulas extends JFrame {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	public static boolean aberto = false;
 	private JTextField initialCell;
 	private JTextField finalCell;

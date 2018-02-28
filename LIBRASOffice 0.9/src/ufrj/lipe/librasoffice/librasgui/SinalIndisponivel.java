@@ -6,10 +6,14 @@ import javax.swing.JLabel;
 public class SinalIndisponivel extends JanelaFlutuanteLIBRAS {
 
 	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	/**
 	 * Create the application.
 	 */
 	public SinalIndisponivel() {
-		setUILook();
 		initialize();
 	}
 
@@ -28,8 +32,8 @@ public class SinalIndisponivel extends JanelaFlutuanteLIBRAS {
 		JButton btnEnvieParaNs = new JButton("ENVIE SINAL PARA NÓS!");
 		btnEnvieParaNs.setBounds(36, 108, 173, 25);
 	
-		janelaPrincipal.getContentPane().add(btnEnvieParaNs);
-		janelaPrincipal.getContentPane().add(lblNewLabel);
-		janelaPrincipal.setBounds(0,0,width,140);
+		getContentPane().add(btnEnvieParaNs);
+		getContentPane().add(lblNewLabel);
+		setBounds(0,0,width,140);
 	}
 }

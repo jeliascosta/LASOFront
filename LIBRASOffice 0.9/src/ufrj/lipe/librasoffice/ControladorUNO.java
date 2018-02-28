@@ -4,7 +4,6 @@ import com.artofsolving.jodconverter.openoffice.connection.AbstractOpenOfficeCon
 import com.artofsolving.jodconverter.openoffice.connection.SocketOpenOfficeConnection;
 import com.sun.star.frame.XController;
 import com.sun.star.frame.XDesktop;
-import com.sun.star.frame.XDispatchHelper;
 import com.sun.star.frame.XModel;
 import com.sun.star.lang.IndexOutOfBoundsException;
 import com.sun.star.lang.XComponent;
@@ -23,7 +22,7 @@ import com.sun.star.uno.XComponentContext;
 
 public class ControladorUNO {
 	private Object LODesktop;
-	private XDispatchHelper xDHelper;
+	//private XDispatchHelper xDHelper;
 	private XDesktop xDesk;
 
 	public ControladorUNO(){
@@ -41,8 +40,8 @@ public class ControladorUNO {
 				XMultiComponentFactory xCCSM = xCtx.getServiceManager();
 				LODesktop = xCCSM.createInstanceWithContext("com.sun.star.frame.Desktop", xCtx);
 
-				Object disper = xCCSM.createInstanceWithContext("com.sun.star.frame.DispatchHelper", xCtx);
-				xDHelper = UnoRuntime.queryInterface(XDispatchHelper.class, disper);
+				//Object disper = xCCSM.createInstanceWithContext("com.sun.star.frame.DispatchHelper", xCtx);
+				//xDHelper = UnoRuntime.queryInterface(XDispatchHelper.class, disper);
 
 				xDesk = (XDesktop) UnoRuntime.queryInterface(XDesktop.class, LODesktop);
 			}

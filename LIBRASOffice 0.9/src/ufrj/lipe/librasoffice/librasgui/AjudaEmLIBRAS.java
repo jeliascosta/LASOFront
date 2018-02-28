@@ -6,15 +6,17 @@ import java.awt.event.MouseEvent;
 
 import javax.swing.JButton;
 
-import ufrj.lipe.librasoffice.ControladorUNO;
-
 public class AjudaEmLIBRAS extends JanelaFlutuanteLIBRAS {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 	/**
 	 * Create the application.
 	 */
 	public AjudaEmLIBRAS() {
-		setUILook();
 		initialize();
 	}
 
@@ -39,7 +41,7 @@ public class AjudaEmLIBRAS extends JanelaFlutuanteLIBRAS {
 					AssistenteFormulas AF = new AssistenteFormulas();
 					AF.setVisible(true);
 				}
-				janelaPrincipal.setVisible(false);
+				setVisible(false);
 			}
 			public void mouseExited(MouseEvent e) {
 				System.err.println("SAIU DO BOTÃO");
@@ -47,7 +49,7 @@ public class AjudaEmLIBRAS extends JanelaFlutuanteLIBRAS {
 			}
 		});
 		
-		janelaPrincipal.getContentPane().add(btnAssistente);
+		getContentPane().add(btnAssistente);
 	}
 
 	public void setAssistente(boolean set) {
