@@ -30,8 +30,9 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="4" language="java" name="ufrj.lipe.librasoffice.ControladorUNO" project="LIBRASOffice 1.0 alfa" 
-    file="/LIBRASOffice 1.0 alfa/src/ufrj/lipe/librasoffice/ControladorUNO.java" binary="false" corner="BOTTOM_RIGHT">    
+  <class id="4" language="java" name="ufrj.lipe.librasoffice.external.ControladorUNOoladorUNO" project="LIBRASOffice 1.0 alfa" 
+    file="/LIBRASOffice 1.0 alfa/src/ufrj/lipe/librasoffice/external/ControladorUNO.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="1138" y="251"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
@@ -104,71 +105,79 @@
     <end type="TARGET" refId="5" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <association id="14">    
+  <dependency id="14">    
+    <end type="SOURCE" refId="7"/>    
+    <end type="TARGET" refId="5"/>  
+  </dependency>  
+  <association id="15">    
     <end type="SOURCE" refId="3" navigable="false">      
-      <attribute id="15" name="janelaLIBRAS"/>      
-      <multiplicity id="16" minimum="0" maximum="1"/>    
+      <attribute id="16" name="janelaLIBRAS"/>      
+      <multiplicity id="17" minimum="0" maximum="1"/>    
     </end>    
     <end type="TARGET" refId="5" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <dependency id="17">    
+  <dependency id="18">    
     <end type="SOURCE" refId="6"/>    
     <end type="TARGET" refId="4"/>  
   </dependency>  
-  <association id="18">    
+  <association id="19">    
     <end type="SOURCE" refId="1" navigable="false">      
-      <attribute id="19" name="aval"/>      
-      <multiplicity id="20" minimum="0" maximum="1"/>    
+      <attribute id="20" name="aval"/>      
+      <multiplicity id="21" minimum="0" maximum="1"/>    
     </end>    
     <end type="TARGET" refId="2" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <association id="21">    
+  <association id="22">    
     <end type="SOURCE" refId="3" navigable="false">      
-      <attribute id="22" name="janelaIndisp"/>      
-      <multiplicity id="23" minimum="0" maximum="1"/>    
+      <attribute id="23" name="janelaIndisp"/>      
+      <multiplicity id="24" minimum="0" maximum="1"/>    
     </end>    
     <end type="TARGET" refId="8" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <dependency id="24">    
+  <dependency id="25">    
     <end type="SOURCE" refId="7"/>    
     <end type="TARGET" refId="9"/>  
   </dependency>  
-  <dependency id="25">    
+  <dependency id="26">    
     <end type="SOURCE" refId="1"/>    
     <end type="TARGET" refId="9"/>  
   </dependency>  
-  <association id="26">    
+  <association id="27">    
     <end type="SOURCE" refId="1" navigable="false">      
-      <attribute id="27" name="jnIndisp"/>      
-      <multiplicity id="28" minimum="0" maximum="1"/>    
+      <attribute id="28" name="jnIndisp"/>      
+      <multiplicity id="29" minimum="0" maximum="1"/>    
     </end>    
     <end type="TARGET" refId="8" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <dependency id="29">    
+  <dependency id="30">    
     <end type="SOURCE" refId="5"/>    
     <end type="TARGET" refId="6"/>  
   </dependency>  
-  <association id="30">    
+  <association id="31">    
     <end type="SOURCE" refId="3" navigable="false">      
-      <attribute id="31" name="cLog"/>      
-      <multiplicity id="32" minimum="0" maximum="1"/>    
+      <attribute id="32" name="cLog"/>      
+      <multiplicity id="33" minimum="0" maximum="1"/>    
     </end>    
     <end type="TARGET" refId="1" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <generalization id="33">    
+  <generalization id="34">    
     <end type="SOURCE" refId="5"/>    
     <end type="TARGET" refId="7"/>  
   </generalization>  
-  <generalization id="34">    
+  <dependency id="35">    
+    <end type="SOURCE" refId="1"/>    
+    <end type="TARGET" refId="3"/>  
+  </dependency>  
+  <generalization id="36">    
     <end type="SOURCE" refId="8"/>    
     <end type="TARGET" refId="7"/>  
   </generalization>  
-  <dependency id="35">    
+  <dependency id="37">    
     <end type="SOURCE" refId="7"/>    
     <end type="TARGET" refId="1"/>  
   </dependency>  

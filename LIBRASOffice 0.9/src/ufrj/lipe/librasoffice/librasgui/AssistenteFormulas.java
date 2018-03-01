@@ -17,10 +17,11 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.JTextPane;
+import javax.swing.border.CompoundBorder;
 
 import com.sun.star.lang.IndexOutOfBoundsException;
 
-import ufrj.lipe.librasoffice.ControladorUNO;
+import ufrj.lipe.librasoffice.external.ControladorUNO;
 
 public class AssistenteFormulas extends JFrame {
 
@@ -35,10 +36,11 @@ public class AssistenteFormulas extends JFrame {
 	private JPanel camposDaFormula;
 	private JCheckBox isCellRange;
 	
-	private void exibirCampos(boolean enableRange) {
+	private void exibirCampos(boolean enableRange, String formulaLiteral) {
 		opcoesDeFormula.setVisible(false);
 		camposDaFormula.setVisible(true);
 		isCellRange.setEnabled(enableRange);
+		
 	}
 	
 	/**
@@ -73,7 +75,7 @@ public class AssistenteFormulas extends JFrame {
 				System.err.println("LIBEROU FRAME");
 			}
 		});
-		setBounds(100, 100, 452, 300);
+		setBounds(100, 100, 467, 282);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		getContentPane().setLayout(null);		
 		
@@ -131,21 +133,40 @@ public class AssistenteFormulas extends JFrame {
 		JTextPane txtpnFrmula = new JTextPane();
 		txtpnFrmula.setText("=");
 		txtpnFrmula.setEditable(false);
-		txtpnFrmula.setBounds(22, 151, 181, 27);
+		txtpnFrmula.setBounds(34, 151, 44, 27);
 		camposDaFormula.add(txtpnFrmula);
 		
 		JLabel lblFrmulaMontada = new JLabel("Fórmula montada:");
 		lblFrmulaMontada.setBounds(24, 132, 106, 16);
 		camposDaFormula.add(lblFrmulaMontada);
-
-		JLabel lblNewLabel = new JLabel("");
-		lblNewLabel.setIcon(new ImageIcon("C:\\Users\\KWNSound\\Documents\\GitHub\\LASOFront\\LIBRASOffice GIFs\\src\\ufrj\\lipe\\librasoffice\\sinais\\ABRIR.gif"));
-		lblNewLabel.setBounds(255, 13, 179, 210);
-		getContentPane().add(lblNewLabel);
 		
-		JLabel lblNewLabel_1 = new JLabel("");
-		lblNewLabel_1.setBounds(255, 226, 179, 28);
-		getContentPane().add(lblNewLabel_1);
+		isCellRange = new JCheckBox("Faixa de células");
+		isCellRange.setBounds(101, 100, 118, 25);
+		camposDaFormula.add(isCellRange);
+		
+		JTextPane textPane = new JTextPane();
+		textPane.setEditable(false);
+		textPane.setBounds(81, 151, 26, 27);
+		camposDaFormula.add(textPane);
+		
+		JTextPane textPane_1 = new JTextPane();
+		textPane_1.setEditable(false);
+		textPane_1.setBounds(112, 151, 26, 27);
+		camposDaFormula.add(textPane_1);
+		
+		JTextPane textPane_2 = new JTextPane();
+		textPane_2.setEditable(false);
+		textPane_2.setBounds(150, 151, 26, 27);
+		camposDaFormula.add(textPane_2);
+		
+		JTextPane textPane_3 = new JTextPane();
+		textPane_3.setEditable(false);
+		textPane_3.setBounds(188, 151, 31, 27);
+		camposDaFormula.add(textPane_3);
+		
+		JLabel lblNewLabel_2 = new JLabel("A1");
+		lblNewLabel_2.setBounds(12, 151, 15, 16);
+		camposDaFormula.add(lblNewLabel_2);
 		
 		opcoesDeFormula = new JPanel();
 		opcoesDeFormula.setLayout(null);
@@ -156,7 +177,7 @@ public class AssistenteFormulas extends JFrame {
 		button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				formula = "product";
-				exibirCampos(true);
+				exibirCampos(true, "MULT");
 			}
 		});
 		button.setBounds(0, 66, 110, 20);
@@ -165,22 +186,18 @@ public class AssistenteFormulas extends JFrame {
 		JButton btnMdia = new JButton("MÉDIA");
 		btnMdia.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				formula = "sub";
-				exibirCampos(true);
+				formula = "average";
+				exibirCampos(true, btnMdia.getText());
 			}
 		});
 		btnMdia.setBounds(121, 0, 110, 20);
 		opcoesDeFormula.add(btnMdia);
 		
-		isCellRange = new JCheckBox("Faixa de células");
-		isCellRange.setBounds(101, 100, 118, 25);
-		camposDaFormula.add(isCellRange);
-		
 		JButton button_3 = new JButton("DIVIDIR");
 		button_3.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				formula = "quotient";
-				exibirCampos(false);
+				exibirCampos(false, "QUOCIENTE");
 			}
 		});
 		button_3.setBounds(0, 99, 110, 20);
@@ -189,6 +206,8 @@ public class AssistenteFormulas extends JFrame {
 		JButton btnMximo = new JButton("MÁXIMO");
 		btnMximo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				formula = "max";
+				exibirCampos(false, btnMximo.getText());
 			}
 		});
 		btnMximo.setBounds(121, 33, 110, 20);
@@ -206,7 +225,7 @@ public class AssistenteFormulas extends JFrame {
 		btnRaizQuadrada.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				formula = "sub";
-				exibirCampos(false);
+				exibirCampos(false, btnRaizQuadrada.getText());
 			}
 		});
 		btnRaizQuadrada.setFont(new Font("Tahoma", Font.PLAIN, 12));
@@ -229,8 +248,17 @@ public class AssistenteFormulas extends JFrame {
 		button_2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				formula = "sum";
-				exibirCampos(true);
+				exibirCampos(true,"SOMA");
 			}
 		});
+
+		JLabel lblNewLabel = new JLabel("");
+		lblNewLabel.setIcon(new ImageIcon(AssistenteFormulas.class.getResource("/ufrj/lipe/librasoffice/sinais/ALINHAR_BAIXO.gif")));
+		lblNewLabel.setBounds(255, 13, 190, 190);
+		getContentPane().add(lblNewLabel);
+		
+		JLabel lblNewLabel_1 = new JLabel("");
+		lblNewLabel_1.setBounds(255, 213, 190, 28);
+		getContentPane().add(lblNewLabel_1);
 	}
 }

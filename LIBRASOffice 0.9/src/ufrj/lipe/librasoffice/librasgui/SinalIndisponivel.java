@@ -3,6 +3,12 @@ package ufrj.lipe.librasoffice.librasgui;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 
+import ufrj.lipe.librasoffice.external.ControladorGDrive;
+
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.io.IOException;
+
 public class SinalIndisponivel extends JanelaFlutuanteLIBRAS {
 
 	private static final long serialVersionUID = 1L;
@@ -27,6 +33,18 @@ public class SinalIndisponivel extends JanelaFlutuanteLIBRAS {
 		lblNewLabel.setBounds(10, 65, width, 16);
 				
 		JButton btnEnvieParaNs = new JButton("ENVIE SINAL PARA NÓS!");
+		btnEnvieParaNs.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				ControladorGDrive cgd = new ControladorGDrive();
+				try {
+					cgd.sendSample();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		});
 		btnEnvieParaNs.setBounds(36, 108, 173, 25);
 	
 		getContentPane().add(btnEnvieParaNs);

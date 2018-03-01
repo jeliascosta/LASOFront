@@ -91,6 +91,8 @@ public class AvaliadorSemantico {
 			comandoLibras = "INSERIR_COLUNA_ESQUERDA";
 		} else if (comando_lwrc.contains("inserir") && comando_lwrc.contains("linha") && comando_lwrc.contains("cima")) {
 			comandoLibras = "INSERIR_LINHA_ACIMA";
+		} else if (comando_lwrc.contains("linha") && comando_lwrc.contains("entrada")) {
+			comandoLibras = "NULO";
 		} else if (comando_lwrc.contains("localizar")) {
 			comandoLibras = "LOCALIZAR";
 		} else if (comando_lwrc.contains("moldar") && comando_lwrc.contains("texto")) {

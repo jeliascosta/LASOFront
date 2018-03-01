@@ -1,4 +1,4 @@
-package ufrj.lipe.librasoffice;
+package ufrj.lipe.librasoffice.external;
 
 import com.artofsolving.jodconverter.openoffice.connection.AbstractOpenOfficeConnection;
 import com.artofsolving.jodconverter.openoffice.connection.SocketOpenOfficeConnection;
