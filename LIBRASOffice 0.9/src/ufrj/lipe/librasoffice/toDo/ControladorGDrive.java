@@ -1,4 +1,4 @@
-package ufrj.lipe.librasoffice.external;
+package ufrj.lipe.librasoffice.toDo;
 
 import java.io.IOException;
 import java.security.PrivateKey;
@@ -38,30 +38,30 @@ class CustomProgressListener implements MediaHttpUploaderProgressListener {
 	        break;
 	      case MEDIA_COMPLETE:
 	        System.err.println("Upload is complete!");
-		case NOT_STARTED:
+	        break;
+	      case NOT_STARTED:
 	        System.err.println("Not Started!");
-			break;
-		default:
-	        System.err.println("Não deveria estar aqui!");
-			break;
+	        break;
+	      default:
+	    	  break;
 	    }
 	  }
 	}
 
 public class ControladorGDrive {
 	/** Application name. */
-	private final String APPLICATION_NAME = "LIBRASOffice";
+	private final static String APPLICATION_NAME = "LIBRASOffice";
 
 	/** Global instance of the JSON factory. */
-	private final JsonFactory JSON_FACTORY = JacksonFactory.getDefaultInstance();
+	private final static JsonFactory JSON_FACTORY = JacksonFactory.getDefaultInstance();
 
 	/** Global instance of the HTTP transport. */
-	private HttpTransport HTTP_TRANSPORT;
+	private static HttpTransport HTTP_TRANSPORT;
 
 	/** Global instance of the scopes required by this API. */
-	private final List<String> SCOPES = Arrays.asList(DriveScopes.DRIVE_FILE);
+	private final static List<String> SCOPES = Arrays.asList(DriveScopes.DRIVE_FILE);
 
-	{
+	static {
 		try {
 			HTTP_TRANSPORT = GoogleNetHttpTransport.newTrustedTransport();
 		} catch (Throwable t) {
@@ -77,7 +77,7 @@ public class ControladorGDrive {
 	 * @throws IOException
 	 */
 	@SuppressWarnings("deprecation")
-	public HttpCredentialsAdapter authorize() throws IOException {
+	public static HttpCredentialsAdapter authorize() throws IOException {
 		System.out.println(ControladorGDrive.class.getClassLoader().getResourceAsStream("LIBRASOffice-7b93cd6faf0e.p12"));
 		try {
 			PrivateKey privateKey = SecurityUtils.loadPrivateKeyFromKeyStore(SecurityUtils.getPkcs12KeyStore(),
@@ -98,12 +98,12 @@ public class ControladorGDrive {
 	 * @return an authorized Drive client service
 	 * @throws IOException
 	 */
-	public Drive getDriveService() throws IOException {
+	public static Drive getDriveService() throws IOException {
 		HttpCredentialsAdapter credential = authorize();
 		return new Drive.Builder(HTTP_TRANSPORT, JSON_FACTORY, credential).setApplicationName(APPLICATION_NAME).build();
 	}
 
-	public void sendSample() throws IOException {
+	public static void main(String args[]) throws IOException {
 		// Build a new authorized API client service.
 		Drive service = getDriveService();
 
@@ -138,7 +138,20 @@ public class ControladorGDrive {
 			
 		    fileMetadata1.setName(selectedFile.getName());
 			FileContent mediaContent1 = new FileContent("application/octet-stream", selectedFile);
-			File file = service.files().create(fileMetadata1, mediaContent1).setFields("id").execute();
+			
+			Drive.Files.Create request = service.files().create(fileMetadata1, mediaContent1);
+			MediaHttpUploader uploader = request.getMediaHttpUploader();
+			uploader.setDirectUploadEnabled(false);
+			System.err.println(MediaHttpUploader.CONTENT_LENGTH_HEADER+" - "+MediaHttpUploader.CONTENT_TYPE_HEADER+" - "+MediaHttpUploader.DEFAULT_CHUNK_SIZE+" - "+MediaHttpUploader.MINIMUM_CHUNK_SIZE);
+
+			System.err.println(uploader.getChunkSize());
+			System.err.println(uploader.setChunkSize(MediaHttpUploader.MINIMUM_CHUNK_SIZE));
+			System.err.println(uploader.getChunkSize());
+
+			uploader.setProgressListener(new CustomProgressListener());
+			
+			File file = request.setFields("id").execute();
+			
 			System.out.println("File ID: " + file.getId());
 			result1 = fileChooser.showOpenDialog(frame);
 		}
