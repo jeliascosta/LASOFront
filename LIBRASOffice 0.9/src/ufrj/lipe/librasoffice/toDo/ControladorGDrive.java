@@ -42,8 +42,8 @@ class CustomProgressListener implements MediaHttpUploaderProgressListener {
 	      case NOT_STARTED:
 	        System.err.println("Not Started!");
 	        break;
-	      default:
-	    	  break;
+	      default:	    	
+	    	break;
 	    }
 	  }
 	}
