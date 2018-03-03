@@ -129,7 +129,7 @@ public class AssistenteDeEnvio extends JFrame {
 			public void actionPerformed(ActionEvent arg0) {		
 				senderGDrive lipeDrive = new senderGDrive(arquivoZIP, progressBar);
 				Thread tCL = new Thread(lipeDrive);
-				tCL.start();			
+				tCL.start();
 			}
 		});
 		btnNewButton_1.setBounds(12, 339, 97, 25);
