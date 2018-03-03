@@ -36,14 +36,7 @@ public class SinalIndisponivel extends JanelaFlutuanteLIBRAS {
 		btnEnvieParaNs.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
-				ControladorGDrive cgd;
-				try {
-					cgd = new ControladorGDrive();
-					cgd.sendSample();
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+				new AssistenteDeEnvio(legendaPortugues.getText());
 			}
 		});
 		btnEnvieParaNs.setBounds(36, 108, 173, 25);

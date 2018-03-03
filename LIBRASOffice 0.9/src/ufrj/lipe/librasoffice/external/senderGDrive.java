@@ -1,11 +1,13 @@
 package ufrj.lipe.librasoffice.external;
 
+import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.security.PrivateKey;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JProgressBar;
 
@@ -25,7 +27,8 @@ import com.google.auth.oauth2.ServiceAccountCredentials;
 
 class CustomProgressListener2 implements MediaHttpUploaderProgressListener {
 	  JProgressBar pbar;
-	  CustomProgressListener2(JProgressBar pbar){ this.pbar = pbar; }
+	  JLabel plbl;
+	  CustomProgressListener2(JProgressBar pbar, JLabel plbl){ this.pbar = pbar; this.plbl = plbl; }
 	  public void progressChanged(MediaHttpUploader uploader) throws IOException {
 	    switch (uploader.getUploadState()) {
 	      case INITIATION_STARTED:
@@ -34,14 +37,17 @@ class CustomProgressListener2 implements MediaHttpUploaderProgressListener {
 	      case INITIATION_COMPLETE:
 	        System.err.println("Initiation is complete!");
 	        pbar.setValue(0);
+	        plbl.setText("TRANSFERÊNCIA INICIADA!");
 	        break;
 	      case MEDIA_IN_PROGRESS:
 	        System.err.println(uploader.getProgress());
 	        pbar.setValue((int) (uploader.getProgress()*100));
+	        plbl.setText("TRANSFERÊNCIA EM PROGRESSO!");
 	        break;
 	      case MEDIA_COMPLETE:
 	        System.err.println("Upload is complete!");
 	        pbar.setValue(100);
+	        plbl.setText("TRANSFERÊNCIA COMPLETA!");
 	        JOptionPane.showMessageDialog(null, "ARQUIVO RECEBIDO! OBRIGADO!");
 		case NOT_STARTED:
 	        System.err.println("Not Started!");
@@ -58,6 +64,7 @@ public class senderGDrive implements Runnable {
 	private Drive service;
 	private java.io.File ioFile;
 	private JProgressBar progress;
+	private JLabel label;
 	
 	/** Application name. */
 	private final String APPLICATION_NAME = "LIBRASOffice";
@@ -80,11 +87,12 @@ public class senderGDrive implements Runnable {
 		}
 	}
 
-	public senderGDrive(java.io.File file, JProgressBar pBar) {
+	public senderGDrive(java.io.File file, JProgressBar pBar, JLabel pLabel) {
 		ioFile = file;
 		progress = pBar;
+		label = pLabel;
 	}
-	
+
 	/**
 	 * Creates an authorized Credential object.
 	 * 
@@ -146,7 +154,7 @@ public class senderGDrive implements Runnable {
 		uploader.setDirectUploadEnabled(false);
 		uploader.setChunkSize(MediaHttpUploader.MINIMUM_CHUNK_SIZE);
 		System.err.println(uploader.getChunkSize());
-		uploader.setProgressListener(new CustomProgressListener2(progress));
+		uploader.setProgressListener(new CustomProgressListener2(progress, label));
 		
 		File file = null;
 		try {

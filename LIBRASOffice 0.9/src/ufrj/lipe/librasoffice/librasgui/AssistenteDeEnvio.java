@@ -31,6 +31,8 @@ import ufrj.lipe.librasoffice.Iniciador;
 import ufrj.lipe.librasoffice.InterpretadorDeLog;
 import ufrj.lipe.librasoffice.external.ControladorGDrive;
 import ufrj.lipe.librasoffice.external.senderGDrive;
+import javax.swing.SwingConstants;
+import java.awt.Font;
 
 public class AssistenteDeEnvio extends JFrame {
 
@@ -60,35 +62,21 @@ public class AssistenteDeEnvio extends JFrame {
 	}
 	
 	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					AssistenteDeEnvio frame = new AssistenteDeEnvio();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
-	/**
 	 * Create the frame.
 	 */
-	public AssistenteDeEnvio() {
+	public AssistenteDeEnvio(String legenda) {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 707, 422);
+		setBounds(100, 100, 707, 438);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		JLabel legendaPortuguês = new JLabel("");
-		legendaPortuguês.setBounds(184, 260, 287, 16);
-		contentPane.add(legendaPortuguês);
+		JLabel legendaPortugues = new JLabel("");
+		legendaPortugues.setFont(legendaPortugues.getFont().deriveFont(legendaPortugues.getFont().getStyle() | Font.BOLD));
+		legendaPortugues.setBounds(184, 260, 493, 16);
+		legendaPortugues.setText(legenda);
+		contentPane.add(legendaPortugues);
 		
 		JLabel lblTextoEmPortugus = new JLabel("Legenda em português:");
 		lblTextoEmPortugus.setBounds(20, 260, 152, 16);
@@ -124,10 +112,15 @@ public class AssistenteDeEnvio extends JFrame {
 		lblNewLabel.setBounds(483, 13, 194, 207);
 		contentPane.add(lblNewLabel);
 		
+		JLabel lblProgressBar = new JLabel("");
+		lblProgressBar.setHorizontalAlignment(SwingConstants.CENTER);
+		lblProgressBar.setBounds(184, 371, 460, 16);
+		contentPane.add(lblProgressBar);
+		
 		JButton btnNewButton_1 = new JButton("Enviar");
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {		
-				senderGDrive lipeDrive = new senderGDrive(arquivoZIP, progressBar);
+				senderGDrive lipeDrive = new senderGDrive(arquivoZIP, progressBar, lblProgressBar);
 				Thread tCL = new Thread(lipeDrive);
 				tCL.start();
 			}
@@ -172,7 +165,7 @@ public class AssistenteDeEnvio extends JFrame {
 		contentPane.add(txtSeTiverEmail);
 		
 		JEditorPane dtrpnVocAutorizaO = new JEditorPane();
-		dtrpnVocAutorizaO.setBackground(UIManager.getColor("Label.background"));
+		dtrpnVocAutorizaO.setEnabled(false);
 		dtrpnVocAutorizaO.setText("Você autoriza os desenvolvedores do LIBRASOffice a utilizarem sua imagem, sem restrições, dentro do programa?");
 		dtrpnVocAutorizaO.setEditable(false);
 		dtrpnVocAutorizaO.setBounds(12, 188, 354, 59);
@@ -183,7 +176,7 @@ public class AssistenteDeEnvio extends JFrame {
 		contentPane.add(chkEuAutorizo);
 		
 		JEditorPane dtrpnVocConfirmaQue = new JEditorPane();
-		dtrpnVocConfirmaQue.setBackground(UIManager.getColor("Label.background"));
+		dtrpnVocConfirmaQue.setEnabled(false);
 		dtrpnVocConfirmaQue.setText("Você confirma que é você mesmo que aparece no vídeo que será enviado?");
 		dtrpnVocConfirmaQue.setEditable(false);
 		dtrpnVocConfirmaQue.setBounds(12, 148, 354, 38);
@@ -203,7 +196,7 @@ public class AssistenteDeEnvio extends JFrame {
 				} catch (FileNotFoundException | UnsupportedEncodingException e1) {
 					e1.printStackTrace();
 				}
-				//writer.println(lblNomePessoa.getText());
+				writer.println(legendaPortugues.getText());
 				writer.println(txtSeuNome.getText());
 				writer.println(txtEmQueEstado.getText());
 				writer.println(txtEmQueCidade.getText());
@@ -212,29 +205,27 @@ public class AssistenteDeEnvio extends JFrame {
 				writer.println(chkEuConfirmo.getText()+" - "+chkEuConfirmo.isSelected());
 				writer.close();
 				
-				String caminhoArquivoZIP = Iniciador.getTmpPath()+"LASO_SEND_"+txtSeuNome.getText()+"_"+txtEmQueCidade.getText()+".zip";		
-				String[] srcFiles = { Iniciador.getTmpPath()+"LASO_SEND_DETAIL.txt", txtMediaPath.getText() };
-				// create byte buffer
-				byte[] buffer = new byte[1024];
-				
+				String caminhoArquivoZIP = Iniciador.getTmpPath()+"LASO_SEND_"+legendaPortugues.getText().substring(0, 10)+"_"+txtSeuNome.getText()+"_"+txtEmQueCidade.getText()+".zip";		
+				String[] pacoteDrive = { Iniciador.getTmpPath()+"LASO_SEND_DETAIL.txt", txtMediaPath.getText() };
+
 				try {
-					FileOutputStream fos = new FileOutputStream(caminhoArquivoZIP);
-					ZipOutputStream zos = new ZipOutputStream(fos);
+					FileOutputStream fileOutStream = new FileOutputStream(caminhoArquivoZIP);
+					ZipOutputStream zipStream = new ZipOutputStream(fileOutStream);
+					byte[] buffer = new byte[4096];
 				
-					for (int i=0; i < srcFiles.length; i++) {
-						File srcFile = new File(srcFiles[i]);
-						FileInputStream fis = new FileInputStream(srcFile);
-						// begin writing a new ZIP entry, positions the stream to the start of the entry data
-						zos.putNextEntry(new ZipEntry(srcFile.getName()));
-						int length;
-						while ((length = fis.read(buffer)) > 0)
-							zos.write(buffer, 0, length);
-						zos.closeEntry();
-						// close the InputStream
-						fis.close();
+					for (int i=0; i < pacoteDrive.length; i++) {
+						File arquivoDrive = new File(pacoteDrive[i]);
+						FileInputStream fileInStream = new FileInputStream(arquivoDrive);
+						zipStream.putNextEntry(new ZipEntry(arquivoDrive.getName()));
+						int bufferLength = fileInStream.read(buffer);
+						while (bufferLength > 0) {
+							zipStream.write(buffer, 0, bufferLength);
+							bufferLength = fileInStream.read(buffer);
+						}
+						zipStream.closeEntry();
+						fileInStream.close();
 					}
-					// close the ZipOutputStream
-					zos.close();
+					zipStream.close();
 					arquivoZIP = new File(caminhoArquivoZIP);
 					}
 				catch (IOException e1) {
@@ -242,5 +233,6 @@ public class AssistenteDeEnvio extends JFrame {
 				}
 			}
 		});
+		setVisible(true);
 	}
 }
