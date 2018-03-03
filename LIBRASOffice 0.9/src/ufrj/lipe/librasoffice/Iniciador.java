@@ -14,10 +14,19 @@ import ufrj.lipe.librasoffice.librasgui.SinalIndisponivel;
 
 // 
 public class Iniciador {
-	// Objeto necessário para conectar o LibrasOffice no LibreOffice
-	// static Object LODesktop = null;
-	// static XDispatchHelper xDHelper = null;
+	private static String LASO_TMP_PATH="C:\\ProgramData\\";
 
+	private static void setTmpPath() {
+		String soAtual = System.getProperty("os.name").toLowerCase();
+		System.err.println(soAtual);
+		if (soAtual.equals("linux") || soAtual.equals("unix"))
+			LASO_TMP_PATH = "/tmp/";
+	}
+	
+	public static String getTmpPath(){
+		return LASO_TMP_PATH;
+	}
+	
 	/** AjudaEmLIBRAS é a classe onde estão os gifs de libras. */
 	public static AjudaEmLIBRAS janelaLIBRAS;
 	public static SinalIndisponivel janelaIndisp;
@@ -28,13 +37,9 @@ public class Iniciador {
 	 *
 	 * @return the log
 	 */
-	private static FileReader getLog() {
-		String LASO_LOG_PATH = "C:\\ProgramData\\LASO.log";
-		String soAtual = System.getProperty("os.name").toLowerCase();
-		System.err.println(soAtual);
-		if (soAtual.equals("linux") || soAtual.equals("unix"))
-			LASO_LOG_PATH = "/tmp/LASO.log";
-			
+	private static FileReader findLog() {
+		String LASO_LOG_PATH = LASO_TMP_PATH+"LASO.log";
+		System.err.println(LASO_LOG_PATH);
 		/**
 		 * Para abrir o arquivo Laso.log, é criada a variável fr, que se o arquivo for
 		 * aberto corretamente será retornado quando for impressa essa variável.
@@ -56,8 +61,9 @@ public class Iniciador {
 	 *            the arguments
 	 */
 	public static void main(String[] args) {
+		setTmpPath();
 		// Caso o arquivo não tenha sido aberto é impressa uma mensagem de erro ao executar.
-		FileReader logReader = getLog();
+		FileReader logReader = findLog();
 		
 		if (logReader == null) {
 			System.err.println("LASO.log não foi encontrado!\nSaindo ....");
@@ -80,7 +86,6 @@ public class Iniciador {
 
 		cLog = new InterpretadorDeLog(logReader);
 		Thread tCL = new Thread(cLog);
-		tCL.start();
-		
+		tCL.start();		
 	}
 }

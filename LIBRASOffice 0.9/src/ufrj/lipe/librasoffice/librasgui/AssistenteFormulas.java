@@ -17,7 +17,6 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.JTextPane;
-import javax.swing.border.CompoundBorder;
 
 import com.sun.star.lang.IndexOutOfBoundsException;
 

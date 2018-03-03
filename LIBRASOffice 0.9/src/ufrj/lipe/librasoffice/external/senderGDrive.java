@@ -6,8 +6,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import javax.swing.JFileChooser;
-import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import javax.swing.JProgressBar;
 
 import com.google.api.client.googleapis.javanet.GoogleNetHttpTransport;
 import com.google.api.client.googleapis.media.MediaHttpUploader;
@@ -20,11 +20,12 @@ import com.google.api.client.util.SecurityUtils;
 import com.google.api.services.drive.Drive;
 import com.google.api.services.drive.DriveScopes;
 import com.google.api.services.drive.model.File;
-import com.google.api.services.drive.model.FileList;
 import com.google.auth.http.HttpCredentialsAdapter;
 import com.google.auth.oauth2.ServiceAccountCredentials;
 
-class CustomProgressListener implements MediaHttpUploaderProgressListener {
+class CustomProgressListener2 implements MediaHttpUploaderProgressListener {
+	  JProgressBar pbar;
+	  CustomProgressListener2(JProgressBar pbar){ this.pbar = pbar; }
 	  public void progressChanged(MediaHttpUploader uploader) throws IOException {
 	    switch (uploader.getUploadState()) {
 	      case INITIATION_STARTED:
@@ -32,12 +33,16 @@ class CustomProgressListener implements MediaHttpUploaderProgressListener {
 	        break;
 	      case INITIATION_COMPLETE:
 	        System.err.println("Initiation is complete!");
+	        pbar.setValue(0);
 	        break;
 	      case MEDIA_IN_PROGRESS:
 	        System.err.println(uploader.getProgress());
+	        pbar.setValue((int) (uploader.getProgress()*100));
 	        break;
 	      case MEDIA_COMPLETE:
 	        System.err.println("Upload is complete!");
+	        pbar.setValue(100);
+	        JOptionPane.showMessageDialog(null, "ARQUIVO RECEBIDO! OBRIGADO!");
 		case NOT_STARTED:
 	        System.err.println("Not Started!");
 			break;
@@ -48,9 +53,11 @@ class CustomProgressListener implements MediaHttpUploaderProgressListener {
 	  }
 	}
 
-public class ControladorGDrive implements Runnable {
+public class senderGDrive implements Runnable {
 	
-	Drive service;
+	private Drive service;
+	private java.io.File ioFile;
+	private JProgressBar progress;
 	
 	/** Application name. */
 	private final String APPLICATION_NAME = "LIBRASOffice";
@@ -73,6 +80,11 @@ public class ControladorGDrive implements Runnable {
 		}
 	}
 
+	public senderGDrive(java.io.File file, JProgressBar pBar) {
+		ioFile = file;
+		progress = pBar;
+	}
+	
 	/**
 	 * Creates an authorized Credential object.
 	 * 
@@ -81,10 +93,10 @@ public class ControladorGDrive implements Runnable {
 	 */
 	@SuppressWarnings("deprecation")
 	public HttpCredentialsAdapter authorize() throws IOException {
-		System.out.println(ControladorGDrive.class.getClassLoader().getResourceAsStream("LIBRASOffice-7b93cd6faf0e.p12"));
+		System.out.println(senderGDrive.class.getClassLoader().getResourceAsStream("LIBRASOffice-7b93cd6faf0e.p12"));
 		try {
 			PrivateKey privateKey = SecurityUtils.loadPrivateKeyFromKeyStore(SecurityUtils.getPkcs12KeyStore(),
-					ControladorGDrive.class.getClassLoader().getResourceAsStream("LIBRASOffice-7b93cd6faf0e.p12"), "notasecret", "privatekey","notasecret");
+					senderGDrive.class.getClassLoader().getResourceAsStream("LIBRASOffice-7b93cd6faf0e.p12"), "notasecret", "privatekey","notasecret");
 			return new HttpCredentialsAdapter(new ServiceAccountCredentials(null,
 					"lasofront@librasoffice.iam.gserviceaccount.com", privateKey, null, SCOPES));
 		} catch (Exception e) {
@@ -106,8 +118,14 @@ public class ControladorGDrive implements Runnable {
 		return new Drive.Builder(HTTP_TRANSPORT, JSON_FACTORY, credential).setApplicationName(APPLICATION_NAME).build();
 	}
 	
-	public void sendIOFile(java.io.File ioFile) throws IOException {
-		while(service == null) {}
+	@Override
+	public void run() {
+		try {
+			service = getDriveService();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		System.err.println(service.toString());
 		// subir um arquivo e pegar o ID dele no Drive
 		File fileMetadata = new File();
@@ -117,79 +135,27 @@ public class ControladorGDrive implements Runnable {
 	    fileMetadata.setName(ioFile.getName());
 		FileContent mediaContent = new FileContent("application/octet-stream", ioFile);
 
-		Drive.Files.Create request = service.files().create(fileMetadata, mediaContent);
-		MediaHttpUploader uploader = request.getMediaHttpUploader();
-		uploader.setDirectUploadEnabled(false);
-		uploader.setChunkSize(MediaHttpUploader.MINIMUM_CHUNK_SIZE);
-		System.err.println(uploader.getChunkSize());
-		uploader.setProgressListener(new CustomProgressListener());
-		
-		File file = request.setFields("id").execute();
-		
-		System.out.println("File ID: " + file.getId());
-	}
-
-	public void sendSample() throws IOException {
-		// Print the names and IDs for up to 10 files.
-		FileList result = service.files().list().setPageSize(10).setFields("nextPageToken, files(id, name)").execute();
-		List<File> files = result.getFiles();
-		if (files == null || files.size() == 0) {
-			System.out.println("No files found.");
-		} else {
-			System.out.println("Files:");
-			for (File file : files) {
-				System.out.printf("%s (%s)\n", file.getName(), file.getId());
-			}
-		}
-
-		// subir um arquivo e pegar o ID dele no Drive
-		File fileMetadata1 = new File();
-		List<String> folderID = new ArrayList<String>();
-		folderID.add("0BxM5TVr27KOodWtLNzRpT2lzaXc");
-		fileMetadata1.setParents(folderID);
-		
-		JFrame frame = new JFrame("FrameDemo");
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.pack();
-		JFileChooser fileChooser = new JFileChooser();
-		fileChooser.setCurrentDirectory(new java.io.File(System.getProperty("user.home")));
-		int result1 = fileChooser.showOpenDialog(frame);
-		java.io.File selectedFile = null;
-	
-		while(result1 == JFileChooser.APPROVE_OPTION) {
-		    selectedFile = fileChooser.getSelectedFile();
-		    System.out.println("Selected file: " + selectedFile.getAbsolutePath());
-			
-		    fileMetadata1.setName(selectedFile.getName());
-			FileContent mediaContent1 = new FileContent("application/octet-stream", selectedFile);
-			
-			Drive.Files.Create request = service.files().create(fileMetadata1, mediaContent1);
-			MediaHttpUploader uploader = request.getMediaHttpUploader();
-			uploader.setDirectUploadEnabled(false);
-			System.err.println(MediaHttpUploader.CONTENT_LENGTH_HEADER+" - "+MediaHttpUploader.CONTENT_TYPE_HEADER+" - "+MediaHttpUploader.DEFAULT_CHUNK_SIZE+" - "+MediaHttpUploader.MINIMUM_CHUNK_SIZE);
-
-			System.err.println(uploader.getChunkSize());
-			System.err.println(uploader.setChunkSize(MediaHttpUploader.MINIMUM_CHUNK_SIZE));
-			System.err.println(uploader.getChunkSize());
-
-			uploader.setProgressListener(new CustomProgressListener());
-			
-			File file = request.setFields("id").execute();
-			
-			System.out.println("File ID: " + file.getId());
-			result1 = fileChooser.showOpenDialog(frame);
-		}
-		frame.dispose();
-	}
-
-	@Override
-	public void run() {
-		// Build a new authorized API client service.
+		Drive.Files.Create request = null;
 		try {
-			service = getDriveService();
+			request = service.files().create(fileMetadata, mediaContent);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		MediaHttpUploader uploader = request.getMediaHttpUploader();
+		uploader.setDirectUploadEnabled(false);
+		uploader.setChunkSize(MediaHttpUploader.MINIMUM_CHUNK_SIZE);
+		System.err.println(uploader.getChunkSize());
+		uploader.setProgressListener(new CustomProgressListener2(progress));
+		
+		File file = null;
+		try {
+			file = request.setFields("id").execute();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		System.out.println("File ID: " + file.getId());
 	}
 }

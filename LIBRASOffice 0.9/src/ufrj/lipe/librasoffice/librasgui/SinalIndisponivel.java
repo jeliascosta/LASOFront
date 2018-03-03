@@ -1,13 +1,13 @@
 package ufrj.lipe.librasoffice.librasgui;
 
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.io.IOException;
+
 import javax.swing.JButton;
 import javax.swing.JLabel;
 
 import ufrj.lipe.librasoffice.external.ControladorGDrive;
-
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.io.IOException;
 
 public class SinalIndisponivel extends JanelaFlutuanteLIBRAS {
 
@@ -36,8 +36,9 @@ public class SinalIndisponivel extends JanelaFlutuanteLIBRAS {
 		btnEnvieParaNs.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
-				ControladorGDrive cgd = new ControladorGDrive();
+				ControladorGDrive cgd;
 				try {
+					cgd = new ControladorGDrive();
 					cgd.sendSample();
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
