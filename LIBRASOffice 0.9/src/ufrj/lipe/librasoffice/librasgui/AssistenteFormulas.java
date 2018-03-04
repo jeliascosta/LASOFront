@@ -4,6 +4,8 @@ import java.awt.Font;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.WindowAdapter;
@@ -34,12 +36,22 @@ public class AssistenteFormulas extends JFrame {
 	private JPanel opcoesDeFormula;
 	private JPanel camposDaFormula;
 	private JCheckBox isCellRange;
+	JTextPane txtStartFormula;
+	JTextPane txtEndFormula;
+	JTextPane txtRange;
+	boolean noArgs = false;
 	
 	private void exibirCampos(boolean enableRange, String formulaLiteral) {
 		opcoesDeFormula.setVisible(false);
 		camposDaFormula.setVisible(true);
+		initialCell.setEnabled(enableRange);
+		finalCell.setEnabled(enableRange);
 		isCellRange.setEnabled(enableRange);
-		
+		if (noArgs) {
+			txtRange.setText("");
+		}
+		txtStartFormula.setText("="+formulaLiteral+"(");
+		txtEndFormula.setText(")");
 	}
 	
 	/**
@@ -74,9 +86,108 @@ public class AssistenteFormulas extends JFrame {
 				System.err.println("LIBEROU FRAME");
 			}
 		});
-		setBounds(100, 100, 467, 282);
+		setBounds(100, 100, 485, 282);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		getContentPane().setLayout(null);		
+
+		JLabel lblNewLabel = new JLabel("");
+		lblNewLabel.setIcon(new ImageIcon(AssistenteFormulas.class.getResource("/ufrj/lipe/librasoffice/sinais/ALINHAR_BAIXO.gif")));
+		lblNewLabel.setBounds(277, 13, 190, 190);
+		getContentPane().add(lblNewLabel);
+		
+		opcoesDeFormula = new JPanel();
+		opcoesDeFormula.setLayout(null);
+		opcoesDeFormula.setBounds(12, 13, 231, 229);
+		getContentPane().add(opcoesDeFormula);
+		
+		JTextPane lblLegendaFormula = new JTextPane();
+		lblLegendaFormula.setText("Bem-vindo ao assistente de fórmulas do LIBRASOffice");
+
+		
+		JButton button = new JButton("MULTIPLICAR");
+		button.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				formula = "product";
+				exibirCampos(true, "MULT");
+				lblLegendaFormula.setText("Multiplica as células.");
+			}
+		});
+		button.setBounds(-1, 62, 110, 20);
+		opcoesDeFormula.add(button);
+		
+		JButton btnMdia = new JButton("MÉDIA");
+		btnMdia.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				formula = "average";
+				exibirCampos(true, btnMdia.getText());
+				lblLegendaFormula.setText("Calcula a média das células.");
+			}
+		});
+		btnMdia.setBounds(121, 0, 110, 20);
+		opcoesDeFormula.add(btnMdia);
+		
+		JButton btnMximo = new JButton("MÁXIMO");
+		btnMximo.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				formula = "max";
+				exibirCampos(true, btnMximo.getText());
+				lblLegendaFormula.setText("Calcula o maior número entre as células.");
+			}
+		});
+		btnMximo.setBounds(-1, 133, 110, 20);
+		opcoesDeFormula.add(btnMximo);
+		
+		JButton btnArredeondar = new JButton("AGORA");
+		btnArredeondar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				formula = "now";
+				noArgs=true;
+				exibirCampos(false,btnArredeondar.getText());
+				lblLegendaFormula.setText("Escreve a data e hora do momento.");
+			}
+		});
+		btnArredeondar.setBounds(-1, 196, 110, 20);
+		opcoesDeFormula.add(btnArredeondar);
+		
+		JButton btnMnimo = new JButton("MÍNIMO");
+		btnMnimo.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				formula = "min";
+				exibirCampos(true, btnMnimo.getText());
+				lblLegendaFormula.setText("Calcula o menor número entre as células.");
+			}
+		});
+		btnMnimo.setBounds(121, 133, 110, 20);
+		opcoesDeFormula.add(btnMnimo);
+		
+		JButton btnArredondar = new JButton("MEDIANA");
+		btnArredondar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				formula = "median";
+				exibirCampos(true, "MED");
+				lblLegendaFormula.setText("Calcula a mediana das células.");
+			}
+		});
+		btnArredondar.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		btnArredondar.setBounds(121, 62, 110, 20);
+		opcoesDeFormula.add(btnArredondar);
+		
+		JButton btnHoje = new JButton("HOJE");
+		btnHoje.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				formula = "today";
+				noArgs=true;
+				exibirCampos(false,btnHoje.getText());
+				lblLegendaFormula.setText("Escreve a data de hoje.");
+			}
+		});
+		btnHoje.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		btnHoje.setBounds(121, 196, 110, 20);
+		opcoesDeFormula.add(btnHoje);
+		
+		JButton button_2 = new JButton("SOMAR");
+		button_2.setBounds(0, 0, 110, 20);
+		opcoesDeFormula.add(button_2);
 		
 		camposDaFormula = new JPanel();
 		camposDaFormula.setVisible(false);
@@ -119,7 +230,7 @@ public class AssistenteFormulas extends JFrame {
 				//UNO.testarRotina();
 				try {
 					UNO.insereFormula(initialCell.getText(), finalCell.getText(), 
-							resultCell.getText(), formula, isCellRange.isSelected());
+							resultCell.getText(), formula, isCellRange.isSelected(), noArgs);
 				} catch (IndexOutOfBoundsException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
@@ -129,135 +240,84 @@ public class AssistenteFormulas extends JFrame {
 		});
 		camposDaFormula.add(btnVoltar);
 		
-		JTextPane txtpnFrmula = new JTextPane();
-		txtpnFrmula.setText("=");
-		txtpnFrmula.setEditable(false);
-		txtpnFrmula.setBounds(34, 151, 44, 27);
-		camposDaFormula.add(txtpnFrmula);
+		txtStartFormula = new JTextPane();
+		txtStartFormula.setEditable(false);
+		txtStartFormula.setText("=");
+		txtStartFormula.setBounds(34, 151, 88, 27);
+		camposDaFormula.add(txtStartFormula);
 		
 		JLabel lblFrmulaMontada = new JLabel("Fórmula montada:");
 		lblFrmulaMontada.setBounds(24, 132, 106, 16);
 		camposDaFormula.add(lblFrmulaMontada);
 		
 		isCellRange = new JCheckBox("Faixa de células");
+		isCellRange.setSelected(true);
 		isCellRange.setBounds(101, 100, 118, 25);
 		camposDaFormula.add(isCellRange);
 		
-		JTextPane textPane = new JTextPane();
-		textPane.setEditable(false);
-		textPane.setBounds(81, 151, 26, 27);
-		camposDaFormula.add(textPane);
+		JTextPane txtCell1 = new JTextPane();
+		txtCell1.setEditable(false);
+		txtCell1.setBounds(126, 151, 26, 27);
+		camposDaFormula.add(txtCell1);
 		
-		JTextPane textPane_1 = new JTextPane();
-		textPane_1.setEditable(false);
-		textPane_1.setBounds(112, 151, 26, 27);
-		camposDaFormula.add(textPane_1);
-		
-		JTextPane textPane_2 = new JTextPane();
-		textPane_2.setEditable(false);
-		textPane_2.setBounds(150, 151, 26, 27);
-		camposDaFormula.add(textPane_2);
-		
-		JTextPane textPane_3 = new JTextPane();
-		textPane_3.setEditable(false);
-		textPane_3.setBounds(188, 151, 31, 27);
-		camposDaFormula.add(textPane_3);
-		
-		JLabel lblNewLabel_2 = new JLabel("A1");
-		lblNewLabel_2.setBounds(12, 151, 15, 16);
-		camposDaFormula.add(lblNewLabel_2);
-		
-		opcoesDeFormula = new JPanel();
-		opcoesDeFormula.setLayout(null);
-		opcoesDeFormula.setBounds(12, 13, 231, 229);
-		getContentPane().add(opcoesDeFormula);
-		
-		JButton button = new JButton("MULTIPLICAR");
-		button.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				formula = "product";
-				exibirCampos(true, "MULT");
+		initialCell.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyReleased(KeyEvent e) {
+				txtCell1.setText(initialCell.getText());
 			}
 		});
-		button.setBounds(0, 66, 110, 20);
-		opcoesDeFormula.add(button);
 		
-		JButton btnMdia = new JButton("MÉDIA");
-		btnMdia.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				formula = "average";
-				exibirCampos(true, btnMdia.getText());
+		txtRange = new JTextPane();
+		txtRange.setText(";");
+		txtRange.setEditable(false);
+		txtRange.setBounds(156, 151, 26, 27);
+		camposDaFormula.add(txtRange);
+		
+		isCellRange.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				if(isCellRange.isSelected()) txtRange.setText(":");
+				else txtRange.setText(";");
 			}
 		});
-		btnMdia.setBounds(121, 0, 110, 20);
-		opcoesDeFormula.add(btnMdia);
 		
-		JButton button_3 = new JButton("DIVIDIR");
-		button_3.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				formula = "quotient";
-				exibirCampos(false, "QUOCIENTE");
+		JTextPane txtCell2 = new JTextPane();
+		txtCell2.setEditable(false);
+		txtCell2.setBounds(186, 151, 26, 27);
+		camposDaFormula.add(txtCell2);
+		
+		finalCell.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyReleased(KeyEvent e) {
+				txtCell2.setText(finalCell.getText());
 			}
 		});
-		button_3.setBounds(0, 99, 110, 20);
-		opcoesDeFormula.add(button_3);
 		
-		JButton btnMximo = new JButton("MÁXIMO");
-		btnMximo.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				formula = "max";
-				exibirCampos(false, btnMximo.getText());
+		txtEndFormula = new JTextPane();
+		txtEndFormula.setEditable(false);
+		txtEndFormula.setBounds(216, 151, 15, 27);
+		camposDaFormula.add(txtEndFormula);
+		
+		JLabel lblCellResult = new JLabel("");
+		lblCellResult.setBounds(5, 155, 25, 16);
+		camposDaFormula.add(lblCellResult);
+		
+		lblLegendaFormula.setEnabled(false);
+		lblLegendaFormula.setBounds(277, 206, 202, 36);
+		getContentPane().add(lblLegendaFormula);
+		
+		resultCell.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyReleased(KeyEvent e) {
+				lblCellResult.setText(resultCell.getText());
 			}
 		});
-		btnMximo.setBounds(121, 33, 110, 20);
-		opcoesDeFormula.add(btnMximo);
-		
-		JButton btnArredeondar = new JButton("AGORA");
-		btnArredeondar.setBounds(0, 132, 110, 20);
-		opcoesDeFormula.add(btnArredeondar);
-		
-		JButton btnMnimo = new JButton("MÍNIMO");
-		btnMnimo.setBounds(121, 66, 110, 20);
-		opcoesDeFormula.add(btnMnimo);
-		
-		JButton btnRaizQuadrada = new JButton("SUBTRAIR");
-		btnRaizQuadrada.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				formula = "sub";
-				exibirCampos(false, btnRaizQuadrada.getText());
-			}
-		});
-		btnRaizQuadrada.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		btnRaizQuadrada.setBounds(0, 33, 110, 20);
-		opcoesDeFormula.add(btnRaizQuadrada);
-		
-		JButton btnArredondar = new JButton("ARREDONDAR");
-		btnArredondar.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		btnArredondar.setBounds(121, 99, 110, 20);
-		opcoesDeFormula.add(btnArredondar);
-		
-		JButton btnRaizQuadrada_1 = new JButton("HOJE");
-		btnRaizQuadrada_1.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		btnRaizQuadrada_1.setBounds(121, 132, 110, 20);
-		opcoesDeFormula.add(btnRaizQuadrada_1);
-		
-		JButton button_2 = new JButton("SOMAR");
-		button_2.setBounds(0, 0, 110, 20);
-		opcoesDeFormula.add(button_2);
 		button_2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				formula = "sum";
 				exibirCampos(true,"SOMA");
+				lblLegendaFormula.setText("Soma as células.");
 			}
 		});
-
-		JLabel lblNewLabel = new JLabel("");
-		lblNewLabel.setIcon(new ImageIcon(AssistenteFormulas.class.getResource("/ufrj/lipe/librasoffice/sinais/ALINHAR_BAIXO.gif")));
-		lblNewLabel.setBounds(255, 13, 190, 190);
-		getContentPane().add(lblNewLabel);
-		
-		JLabel lblNewLabel_1 = new JLabel("");
-		lblNewLabel_1.setBounds(255, 213, 190, 28);
-		getContentPane().add(lblNewLabel_1);
 	}
 }

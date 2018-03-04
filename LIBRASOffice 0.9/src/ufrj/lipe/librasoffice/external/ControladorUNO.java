@@ -2,8 +2,12 @@ package ufrj.lipe.librasoffice.external;
 
 import com.artofsolving.jodconverter.openoffice.connection.AbstractOpenOfficeConnection;
 import com.artofsolving.jodconverter.openoffice.connection.SocketOpenOfficeConnection;
+import com.sun.star.beans.PropertyValue;
 import com.sun.star.frame.XController;
 import com.sun.star.frame.XDesktop;
+import com.sun.star.frame.XDispatchHelper;
+import com.sun.star.frame.XDispatchProvider;
+import com.sun.star.frame.XFrame;
 import com.sun.star.frame.XModel;
 import com.sun.star.lang.IndexOutOfBoundsException;
 import com.sun.star.lang.XComponent;
@@ -22,7 +26,7 @@ import com.sun.star.uno.XComponentContext;
 
 public class ControladorUNO {
 	private Object LODesktop;
-	//private XDispatchHelper xDHelper;
+	private XDispatchHelper xDHelper;
 	private XDesktop xDesk;
 
 	public ControladorUNO(){
@@ -40,8 +44,8 @@ public class ControladorUNO {
 				XMultiComponentFactory xCCSM = xCtx.getServiceManager();
 				LODesktop = xCCSM.createInstanceWithContext("com.sun.star.frame.Desktop", xCtx);
 
-				//Object disper = xCCSM.createInstanceWithContext("com.sun.star.frame.DispatchHelper", xCtx);
-				//xDHelper = UnoRuntime.queryInterface(XDispatchHelper.class, disper);
+				Object disper = xCCSM.createInstanceWithContext("com.sun.star.frame.DispatchHelper", xCtx);
+				xDHelper = UnoRuntime.queryInterface(XDispatchHelper.class, disper);
 
 				xDesk = (XDesktop) UnoRuntime.queryInterface(XDesktop.class, LODesktop);
 			}
@@ -80,7 +84,7 @@ public class ControladorUNO {
 				xCell.setFormula("=max(A1:B5)"); 
 	}
 	
-	public void insereFormula(String iC, String fC, String rC, String formula, boolean isRange) throws IndexOutOfBoundsException {
+	public void insereFormula(String iC, String fC, String rC, String formula, boolean isRange, boolean noArgs) throws IndexOutOfBoundsException {
 		System.err.println(iC+"-"+fC+"-"+rC+"-"+formula+"-"+isRange);
 		XComponent xC = xDesk.getCurrentComponent();
 
@@ -93,7 +97,19 @@ public class ControladorUNO {
 		XSpreadsheet xSpreadsheet = xSpreadsheetView.getActiveSheet();
 
 		XCell xCell = xSpreadsheet.getCellRangeByName(rC).getCellByPosition(0, 0);
-		String range = (isRange)?(":"):(";");
+		String range;
+		if(noArgs) range = "";
+		else range = (isRange)?(":"):(";");
 		xCell.setFormula("="+formula+"("+iC+range+fC+")"); 
+		
+		PropertyValue[] args1 = new PropertyValue[1];
+		args1[0] = new PropertyValue();
+		args1[0].Name = "ToPoint";
+		args1[0].Value = rC;
+		
+		XFrame dFrame = xDesk.getCurrentFrame();
+		XDispatchProvider xDProver = UnoRuntime.queryInterface(XDispatchProvider.class, dFrame);
+		xDHelper.executeDispatch(xDProver, ".uno:GoToCell", "", 0, args1);
+
 	}
 }

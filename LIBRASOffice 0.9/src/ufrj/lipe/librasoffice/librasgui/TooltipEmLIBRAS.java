@@ -6,14 +6,14 @@ import java.awt.event.MouseEvent;
 
 import javax.swing.JButton;
 
-public class AjudaEmLIBRAS extends JanelaFlutuanteLIBRAS {
+public class TooltipEmLIBRAS extends JanelaFlutuanteLIBRAS {
 
 	private static final long serialVersionUID = 1L;
 
 	/**
 	 * Create the application.
 	 */
-	public AjudaEmLIBRAS() {
+	public TooltipEmLIBRAS() {
 		initialize();
 	}
 
@@ -37,6 +37,7 @@ public class AjudaEmLIBRAS extends JanelaFlutuanteLIBRAS {
 				if (!AssistenteFormulas.aberto) {
 					AssistenteFormulas AF = new AssistenteFormulas();
 					AF.setVisible(true);
+					AF.toFront();
 				}
 				setVisible(false);
 			}

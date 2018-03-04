@@ -1,6 +1,6 @@
 package ufrj.lipe.librasoffice.librasgui;
 
-import java.awt.EventQueue;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
@@ -13,7 +13,6 @@ import java.io.UnsupportedEncodingException;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
-import javax.swing.AbstractButton;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
@@ -24,15 +23,11 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JProgressBar;
 import javax.swing.JTextField;
-import javax.swing.UIManager;
+import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
 import ufrj.lipe.librasoffice.Iniciador;
-import ufrj.lipe.librasoffice.InterpretadorDeLog;
-import ufrj.lipe.librasoffice.external.ControladorGDrive;
-import ufrj.lipe.librasoffice.external.senderGDrive;
-import javax.swing.SwingConstants;
-import java.awt.Font;
+import ufrj.lipe.librasoffice.external.TransmissorGDrive;
 
 public class AssistenteDeEnvio extends JFrame {
 
@@ -54,7 +49,7 @@ public class AssistenteDeEnvio extends JFrame {
 	private java.io.File selecionaArquivo () {
 		JFileChooser fileChooser = new JFileChooser();
 		fileChooser.setCurrentDirectory(new java.io.File(System.getProperty("user.home")));
-		int result1 = fileChooser.showOpenDialog(this);
+		//int result1 = fileChooser.showOpenDialog(this);
 		//result1 == JFileChooser.APPROVE_OPTION
 		java.io.File selectedFile = null;
 		selectedFile = fileChooser.getSelectedFile();
@@ -65,7 +60,8 @@ public class AssistenteDeEnvio extends JFrame {
 	 * Create the frame.
 	 */
 	public AssistenteDeEnvio(String legenda) {
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setTitle("Assistente de envio de sinais do LIBRASOffice");
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 707, 438);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -120,7 +116,7 @@ public class AssistenteDeEnvio extends JFrame {
 		JButton btnNewButton_1 = new JButton("Enviar");
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {		
-				senderGDrive lipeDrive = new senderGDrive(arquivoZIP, progressBar, lblProgressBar);
+				TransmissorGDrive lipeDrive = new TransmissorGDrive(arquivoZIP, progressBar, lblProgressBar);
 				Thread tCL = new Thread(lipeDrive);
 				tCL.start();
 			}

@@ -2,12 +2,9 @@ package ufrj.lipe.librasoffice.librasgui;
 
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.io.IOException;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
-
-import ufrj.lipe.librasoffice.external.ControladorGDrive;
 
 public class SinalIndisponivel extends JanelaFlutuanteLIBRAS {
 
@@ -37,6 +34,7 @@ public class SinalIndisponivel extends JanelaFlutuanteLIBRAS {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
 				new AssistenteDeEnvio(legendaPortugues.getText());
+				setVisible(false);
 			}
 		});
 		btnEnvieParaNs.setBounds(36, 108, 173, 25);

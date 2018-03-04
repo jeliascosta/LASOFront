@@ -9,8 +9,8 @@ import java.io.FileReader;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
-import ufrj.lipe.librasoffice.librasgui.AjudaEmLIBRAS;
 import ufrj.lipe.librasoffice.librasgui.SinalIndisponivel;
+import ufrj.lipe.librasoffice.librasgui.TooltipEmLIBRAS;
 
 // 
 public class Iniciador {
@@ -27,8 +27,8 @@ public class Iniciador {
 		return LASO_TMP_PATH;
 	}
 	
-	/** AjudaEmLIBRAS é a classe onde estão os gifs de libras. */
-	public static AjudaEmLIBRAS janelaLIBRAS;
+	/** TooltipEmLIBRAS é a classe onde estão os gifs de libras. */
+	public static TooltipEmLIBRAS janelaLIBRAS;
 	public static SinalIndisponivel janelaIndisp;
 	public static InterpretadorDeLog cLog;
 
@@ -80,8 +80,8 @@ public class Iniciador {
 			e.printStackTrace();
 		}	
 		
-		// Um novo objeto "AjudaEmLIBRAS" é instanciado.
-		janelaLIBRAS = new AjudaEmLIBRAS();
+		// Um novo objeto "TooltipEmLIBRAS" é instanciado.
+		janelaLIBRAS = new TooltipEmLIBRAS();
 		janelaIndisp = new SinalIndisponivel();
 
 		cLog = new InterpretadorDeLog(logReader);

@@ -104,7 +104,7 @@ public abstract class JanelaFlutuanteLIBRAS extends JFrame {
 		setUndecorated(true);
 		setAlwaysOnTop(true);
 		setIconImage(Toolkit.getDefaultToolkit()
-				.getImage(AjudaEmLIBRAS.class.getResource("/javax/swing/plaf/metal/icons/Question.gif")));
+				.getImage(TooltipEmLIBRAS.class.getResource("/javax/swing/plaf/metal/icons/Question.gif")));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		getContentPane().setLayout(null);
 		

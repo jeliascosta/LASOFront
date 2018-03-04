@@ -30,7 +30,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="4" language="java" name="ufrj.lipe.librasoffice.external.ControladorUNOoladorUNO" project="LIBRASOffice 1.0 alfa" 
+  <class id="4" language="java" name="ufrj.lipe.librasoffice.external.ControladorUNO" project="LIBRASOffice 1.0 alfa" 
     file="/LIBRASOffice 1.0 alfa/src/ufrj/lipe/librasoffice/external/ControladorUNO.java" binary="false" 
     corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="1138" y="251"/>    
@@ -40,8 +40,8 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="5" language="java" name="ufrj.lipe.librasoffice.librasgui.AjudaEmLIBRAS" project="LIBRASOffice 1.0 alfa" 
-    file="/LIBRASOffice 1.0 alfa/src/ufrj/lipe/librasoffice/librasgui/AjudaEmLIBRAS.java" binary="false" 
+  <class id="5" language="java" name="ufrj.lipeufrj.lipe.librasoffice.librasgui.TooltipEmLIBRASct="LIBRASOffice 1.0 alfa" 
+    file="/LIBRASOffice 1.0 alfa/src/ufrj/lipe/librasoffice/librasgui/TooltipEmLIBRAS.java" binary="false" 
     corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="476" y="69"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" 

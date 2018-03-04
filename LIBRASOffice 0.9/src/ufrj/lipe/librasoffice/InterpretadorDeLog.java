@@ -6,9 +6,9 @@ import java.io.IOException;
 
 import javax.swing.ImageIcon;
 
-import ufrj.lipe.librasoffice.librasgui.AjudaEmLIBRAS;
 import ufrj.lipe.librasoffice.librasgui.SinalIndisponivel;
 import ufrj.lipe.librasoffice.librasgui.TiposWidget;
+import ufrj.lipe.librasoffice.librasgui.TooltipEmLIBRAS;
 
 /**
  * Classe InterpretadorDeLog Monitora o log de saída gerado pelo Iniciador
@@ -23,7 +23,7 @@ public class InterpretadorDeLog implements Runnable {
 
 	/** The comando. */
 	private String comando;
-	private AjudaEmLIBRAS jnAjudaLIBRAS;
+	private TooltipEmLIBRAS jnAjudaLIBRAS;
 	private SinalIndisponivel jnIndisp;
 	private AvaliadorSemantico aval;
 	private FileReader lasoBackLog;
@@ -86,7 +86,7 @@ public class InterpretadorDeLog implements Runnable {
 						jnAjudaLIBRAS.setAssistente(false);
 						
 						if (comando.equals("OPCAO_240")) jnAjudaLIBRAS.setAssistente(true);
-						try { jnAjudaLIBRAS.getGIF().setIcon(new ImageIcon(AjudaEmLIBRAS.class
+						try { jnAjudaLIBRAS.getGIF().setIcon(new ImageIcon(TooltipEmLIBRAS.class
 									.getResource("/ufrj/lipe/librasoffice/sinais/" + comando + ".gif"))); }
 						catch (Exception e) { e.printStackTrace(); }
 						
