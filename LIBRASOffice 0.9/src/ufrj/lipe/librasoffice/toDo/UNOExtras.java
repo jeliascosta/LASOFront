@@ -1,5 +1,4 @@
 package ufrj.lipe.librasoffice.toDo;
-//package ufrj.lipe.librasoffice.toDo;
 //
 //import com.sun.star.beans.PropertyValue;
 //import com.sun.star.frame.XDesktop;
@@ -17,7 +16,7 @@ package ufrj.lipe.librasoffice.toDo;
 // * @author KWNVideo
 // *
 // */
-//public class CalcAdapter {
+public class UNOExtras {
 //
 //	//
 //	// Fields
@@ -75,4 +74,4 @@ package ufrj.lipe.librasoffice.toDo;
 //	// Other methods
 //	//
 //
-//}
+}
