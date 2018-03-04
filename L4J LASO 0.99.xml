@@ -2,8 +2,8 @@
 <launch4jConfig>
   <dontWrapJar>false</dontWrapJar>
   <headerType>gui</headerType>
-  <jar>C:\cygwin\home\lipedev\lode\dev\LASOBack\LASOFront_dist\librasoffice.jar</jar>
-  <outfile>C:\cygwin\home\lipedev\lode\dev\LASOBack\LASOFront_dist\LIBRASOffice.exe</outfile>
+  <jar>C:\cygwin\home\KWNSound\lode\dev\LASOBack\LASOFront_dist\librasoffice.jar</jar>
+  <outfile>C:\cygwin\home\KWNSound\lode\dev\LASOBack\LASOFront_dist\LIBRASOffice.exe</outfile>
   <errTitle></errTitle>
   <cmdLine></cmdLine>
   <chdir>.</chdir>
@@ -13,10 +13,10 @@
   <stayAlive>false</stayAlive>
   <restartOnCrash>false</restartOnCrash>
   <manifest></manifest>
-  <icon>C:\Users\LIpE-Dev\Downloads\latitude_ico.ico</icon>
+  <icon>C:\Users\KWNSound\Downloads\if_latitude-512_148635.ico</icon>
   <singleInstance>
-    <mutexName>onlyoneinstance</mutexName>
-    <windowTitle>MY_MUTEX</windowTitle>
+    <mutexName>LASO_MUTEX</mutexName>
+    <windowTitle></windowTitle>
   </singleInstance>
   <jre>
     <path></path>
@@ -27,12 +27,6 @@
     <jdkPreference>preferJre</jdkPreference>
     <runtimeBits>64/32</runtimeBits>
   </jre>
-  <splash>
-    <file>C:\Users\LIpE-Dev\Downloads\libras-01.bmp</file>
-    <waitForWindow>false</waitForWindow>
-    <timeout>5</timeout>
-    <timeoutErr>true</timeoutErr>
-  </splash>
   <messages>
     <startupErr>An error occurred while starting the application.</startupErr>
     <bundledJreErr>This application was configured to use a bundled Java Runtime Environment but the runtime is missing or corrupted.</bundledJreErr>
