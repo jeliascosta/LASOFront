@@ -25,7 +25,7 @@ public class TooltipEmLIBRAS extends JanelaFlutuanteLIBRAS {
 
 		gifLIBRAS.setBounds(0, 0, 220, 190);
 		
-		btnAssistente = new JButton("ASSISTENTE DE FÓRMULAS EM LIBRAS");
+		btnAssistente = new JButton("ASSISTÊNCIA LIBRAS");
 		btnAssistente.setBounds(0, 230, 220, 30);
 		btnAssistente.setAlignmentX(Component.CENTER_ALIGNMENT);
 		btnAssistente.setIcon(null);

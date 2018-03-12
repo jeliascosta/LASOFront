@@ -28,7 +28,7 @@ public abstract class JanelaFlutuanteLIBRAS extends JFrame {
 	protected JLabel gifLIBRAS;
 	protected JLabel legendaPortugues;
 	protected JButton btnAssistente;
-	protected boolean assistenciado = false, gifEntrou = false, gifSaiu=false, frameEntrou=false, frameSaiu=false;
+	protected boolean assistenciado = false;
 
 	protected void escondeJanela() {
 		if (getMousePosition(true) == null) {
@@ -45,8 +45,6 @@ public abstract class JanelaFlutuanteLIBRAS extends JFrame {
 		int maxRight = (int) (dim.getWidth() - getWidth());
 		int maxBottom = (int) (dim.getHeight() - getHeight());
 		int gifWidth = 0, gifHeight = 0;
-
-		System.err.println("TIPO DO WIDGET: "+Iniciador.cLog.getTipoWidget());
 
 		if (gifLIBRAS.getIcon() != null) {
 			System.err.println("AJUSTANDO GIF");

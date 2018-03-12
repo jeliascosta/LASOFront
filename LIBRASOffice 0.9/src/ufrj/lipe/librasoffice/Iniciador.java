@@ -3,8 +3,11 @@
  */
 package ufrj.lipe.librasoffice;
 
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
 
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
@@ -36,19 +39,22 @@ public class Iniciador {
 	 * Gets the log.
 	 *
 	 * @return the log
+	 * @throws FileNotFoundException 
+	 * @throws UnsupportedEncodingException 
 	 */
-	private static FileReader findLog() {
+	private static InputStreamReader findLog() {
 		String LASO_LOG_PATH = LASO_TMP_PATH+"LASO.log";
 		System.err.println(LASO_LOG_PATH);
 		/**
 		 * Para abrir o arquivo Laso.log, é criada a variável fr, que se o arquivo for
 		 * aberto corretamente será retornado quando for impressa essa variável.
 		 */
-		FileReader logReader = null;
+		InputStreamReader logReader = null;
 		// Verificando se arquivo de log existe ....
 		try {
-			logReader = new FileReader(LASO_LOG_PATH);
-		} catch (FileNotFoundException e) {
+			logReader = new InputStreamReader(new FileInputStream(LASO_LOG_PATH), "UTF8");
+		} catch (UnsupportedEncodingException | FileNotFoundException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return logReader;
@@ -63,7 +69,7 @@ public class Iniciador {
 	public static void main(String[] args) {
 		setTmpPath();
 		// Caso o arquivo não tenha sido aberto é impressa uma mensagem de erro ao executar.
-		FileReader logReader = findLog();
+		InputStreamReader logReader = findLog();
 		
 		if (logReader == null) {
 			System.err.println("LASO.log não foi encontrado!\nSaindo ....");

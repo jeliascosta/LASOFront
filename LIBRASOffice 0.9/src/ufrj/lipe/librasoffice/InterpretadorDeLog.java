@@ -1,12 +1,11 @@
 package ufrj.lipe.librasoffice;
 
 import java.io.BufferedReader;
-import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 
 import javax.swing.ImageIcon;
 
-import ufrj.lipe.librasoffice.librasgui.SinalIndisponivel;
 import ufrj.lipe.librasoffice.librasgui.TiposWidget;
 import ufrj.lipe.librasoffice.librasgui.TooltipEmLIBRAS;
 
@@ -22,19 +21,15 @@ public class InterpretadorDeLog implements Runnable {
 	private boolean aberto = false;
 
 	/** The comando. */
-	private String comando;
-	private TooltipEmLIBRAS jnAjudaLIBRAS;
-	private SinalIndisponivel jnIndisp;
+	private String comandoLIBRAS;
 	private AvaliadorSemantico aval;
-	private FileReader lasoBackLog;
+	private InputStreamReader lasoBackLog;
 
 
 	// Construtores e Destrutores
-	public InterpretadorDeLog(FileReader fr) {
-		jnAjudaLIBRAS = Iniciador.janelaLIBRAS;
-		jnIndisp = Iniciador.janelaIndisp;
+	public InterpretadorDeLog(InputStreamReader logReader) {
 		aval = new AvaliadorSemantico();
-		this.lasoBackLog = fr;
+		this.lasoBackLog = logReader;
 	}
 
 	// Métodos de Acesso
@@ -61,7 +56,7 @@ public class InterpretadorDeLog implements Runnable {
 	 * @return the value of comando
 	 */
 	public String getCommand() {
-		return comando;
+		return comandoLIBRAS;
 	}
 
 	// Métodos de Interface
@@ -75,31 +70,31 @@ public class InterpretadorDeLog implements Runnable {
 				String line = logReader.readLine();
 				if (line == null) Thread.sleep(300);
 				else {
-					comando = aval.avaliar(line);
+					comandoLIBRAS = aval.avaliar(line);
 					System.err.println("LINHA VAZIA? "+line.isEmpty());
-					System.err.println("COMANDO RETORNADO: "+comando);
-					if (comando.equals("NULO")) {}
-					else if (!comando.equals("SUMIR")) {
-						jnIndisp.getJanelaPrincipal().setVisible(false);
+					System.err.println("COMANDO RETORNADO: "+comandoLIBRAS);
+					if (comandoLIBRAS.equals("NULO")) {}
+					else if (!comandoLIBRAS.equals("SUMIR")) {
+						Iniciador.janelaIndisp.getJanelaPrincipal().setVisible(false);
 						
-						jnAjudaLIBRAS.getJanelaPrincipal().setVisible(true);
-						jnAjudaLIBRAS.setAssistente(false);
+						Iniciador.janelaLIBRAS.getJanelaPrincipal().setVisible(true);
+						Iniciador.janelaLIBRAS.setAssistente(false);
 						
-						if (comando.equals("OPCAO_240")) jnAjudaLIBRAS.setAssistente(true);
-						try { jnAjudaLIBRAS.getGIF().setIcon(new ImageIcon(TooltipEmLIBRAS.class
-									.getResource("/ufrj/lipe/librasoffice/sinais/" + comando + ".gif"))); }
+						if (comandoLIBRAS.equals("ASSIST_FORMULA")) Iniciador.janelaLIBRAS.setAssistente(true);
+						try { Iniciador.janelaLIBRAS.getGIF().setIcon(new ImageIcon(TooltipEmLIBRAS.class
+									.getResource("/ufrj/lipe/librasoffice/sinais/" + comandoLIBRAS + ".gif"))); }
 						catch (Exception e) { e.printStackTrace(); }
 						
-						jnAjudaLIBRAS.getLegenda().setText(aval.getComando());
+						Iniciador.janelaLIBRAS.getLegenda().setText(aval.getComando());
 					} else {
-						jnAjudaLIBRAS.getJanelaPrincipal().setVisible(false);
-						jnAjudaLIBRAS.getGIF().setIcon(null);
+						Iniciador.janelaLIBRAS.getJanelaPrincipal().setVisible(false);
+						Iniciador.janelaLIBRAS.getGIF().setIcon(null);
 						
-						if (comando.equals("SUMIR")) {
-							jnIndisp.getJanelaPrincipal().setVisible(true);
-							jnIndisp.getLegenda().setText(aval.getComando());
+						if (comandoLIBRAS.equals("SUMIR")) {
+							Iniciador.janelaIndisp.getJanelaPrincipal().setVisible(true);
+							Iniciador.janelaIndisp.getLegenda().setText(aval.getComando());
 						}						
-						else jnIndisp.getJanelaPrincipal().setVisible(false);
+						else Iniciador.janelaIndisp.getJanelaPrincipal().setVisible(false);
 					}
 				}
 			}

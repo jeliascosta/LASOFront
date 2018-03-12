@@ -24,10 +24,10 @@ import com.google.api.services.drive.model.File;
 import com.google.auth.http.HttpCredentialsAdapter;
 import com.google.auth.oauth2.ServiceAccountCredentials;
 
-class CustomProgressListener2 implements MediaHttpUploaderProgressListener {
+class ControlProgressoUpload implements MediaHttpUploaderProgressListener {
 	  JProgressBar pbar;
 	  JLabel plbl;
-	  CustomProgressListener2(JProgressBar pbar, JLabel plbl){ this.pbar = pbar; this.plbl = plbl; }
+	  ControlProgressoUpload(JProgressBar pbar, JLabel plbl){ this.pbar = pbar; this.plbl = plbl; }
 	  public void progressChanged(MediaHttpUploader uploader) throws IOException {
 	    switch (uploader.getUploadState()) {
 	      case INITIATION_STARTED:
@@ -62,8 +62,8 @@ public class TransmissorGDrive implements Runnable {
 	
 	private Drive service;
 	private java.io.File ioFile;
-	private JProgressBar progress;
-	private JLabel label;
+	private JProgressBar progressBar;
+	private JLabel lblProgress;
 	
 	/** Application name. */
 	private final String APPLICATION_NAME = "LIBRASOffice";
@@ -88,8 +88,8 @@ public class TransmissorGDrive implements Runnable {
 
 	public TransmissorGDrive(java.io.File file, JProgressBar pBar, JLabel pLabel) {
 		ioFile = file;
-		progress = pBar;
-		label = pLabel;
+		progressBar = pBar;
+		lblProgress = pLabel;
 	}
 
 	/**
@@ -153,7 +153,7 @@ public class TransmissorGDrive implements Runnable {
 		uploader.setDirectUploadEnabled(false);
 		uploader.setChunkSize(MediaHttpUploader.MINIMUM_CHUNK_SIZE);
 		System.err.println(uploader.getChunkSize());
-		uploader.setProgressListener(new CustomProgressListener2(progress, label));
+		uploader.setProgressListener(new ControlProgressoUpload(progressBar, lblProgress));
 		
 		File file = null;
 		try {
